@@ -3,8 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to InDigits.Vision's documentation!
+InDigits.Vision
 ===========================================
+Computer Vision Tools and Applications
 
 .. toctree::
    :maxdepth: 2
