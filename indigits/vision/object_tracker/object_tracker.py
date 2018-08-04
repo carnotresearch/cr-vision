@@ -35,8 +35,8 @@ class ObjectTracker:
     def initialize(self, image, bounding_box):
         '''Initializes the tracker'''
         assert self.tracker is not None
-        self.tracker.init(image, bounding_box)
         self.bounding_box = bounding_box
+        return self.tracker.init(image, bounding_box)
 
     def update(self, image):
         '''Updates the bounding box for next frame'''
