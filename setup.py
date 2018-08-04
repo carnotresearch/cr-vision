@@ -44,7 +44,7 @@ setup(
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Computer Vision',
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
@@ -94,7 +94,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            #'iml-dummy=interra.mltools.tools:dummy_tool',
+            #'iv-dummy=indigits.vision.tools:dummy_tool',
         ],
     },
 )
