@@ -32,6 +32,12 @@ def threshold_truncate(image, threshold):
     _, result = cv2.threshold(image, threshold, max_value, cv2.THRESH_TRUNC)
     return result
 
+def threshold_otsu(image):
+    '''Computes Otsu binarization of an image'''
+    _, result = cv2.threshold(image, 0, 255,
+                              cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    return result
+
 def adaptive_threshold_mean(image, mask_value=None, block_size=8, constant=0):
     '''
     Performs adaptive thresholding based on mean method.
