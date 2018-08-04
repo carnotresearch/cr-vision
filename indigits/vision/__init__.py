@@ -13,4 +13,5 @@ from .errors import *
 from .concurrent import *
 from .motion import  *
 from .io import *
+from .video import *
 from .object_tracker import *
