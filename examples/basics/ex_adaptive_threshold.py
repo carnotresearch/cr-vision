@@ -13,7 +13,8 @@ image = cv2.imread(image_path)
 h, w, _ = image.shape
 
 gray_image = iv.bgr_to_gray(image)
-thresholded_image = iv.adaptive_threshold_gaussian(gray_image, block_size=115, constant=1)
+thresholded_image = iv.adaptive_threshold_gaussian(
+    gray_image, block_size=115, constant=1)
 cv2.imshow('Original', image)
 cv2.moveWindow('Original', 10, 10)
 cv2.imshow('Corrected', thresholded_image)
