@@ -174,3 +174,7 @@ intersphinx_mapping = {'https://docs.python.org/': None}
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
+
+# change the matplotlib backend to avoid tkinter dependency
+import matplotlib
+matplotlib.use('agg')
