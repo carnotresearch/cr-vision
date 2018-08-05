@@ -28,6 +28,14 @@ indigits.vision.io.videocapture module
     :undoc-members:
     :show-inheritance:
 
+indigits.vision.io.videowriter module
+-------------------------------------
+
+.. automodule:: indigits.vision.io.videowriter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

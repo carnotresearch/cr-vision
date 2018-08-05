@@ -16,7 +16,9 @@ Subpackages
     indigits.vision.misc
     indigits.vision.motion
     indigits.vision.noise
+    indigits.vision.object_detection
     indigits.vision.object_tracker
+    indigits.vision.saliency
     indigits.vision.video
 
 Submodules
