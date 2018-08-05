@@ -40,6 +40,11 @@ def non_maximum_suppression(bounding_boxes, scores=None, overlap_threshold=0.3):
 
     Returns:
         Selected bounding boxes which were not suppressed.
+
+    .. todo::
+
+        * Need to consider only those rectangles which are nearby.
+
     '''
     if bounding_boxes.size == 0:
         # There is nothing to do
