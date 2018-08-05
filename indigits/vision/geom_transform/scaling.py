@@ -6,6 +6,9 @@ import cv2
 def resize_by_height(image, target_height, interpolation=cv2.INTER_LANCZOS4):
     """Resize `image` to `target_height` (preserving aspect ratio)."""
     src_height, src_width = image.shape[0:2]
+    if target_height == src_height:
+        # There is nothing to do
+        return image
     target_width = int(round(target_height * src_width / src_height))
     return cv2.resize(image, (target_width, target_height), interpolation=interpolation)
 
@@ -15,6 +18,9 @@ def resize_by_height(image, target_height, interpolation=cv2.INTER_LANCZOS4):
 def resize_by_width(image, target_width, interpolation=cv2.INTER_LANCZOS4):
     """Resize `image` to `target_width` (preserving aspect ratio)."""
     src_height, src_width = image.shape[0:2]
+    if target_width == src_width:
+        # There is nothing to do
+        return image
     target_height = int(round(target_width * src_height / src_width))
     return cv2.resize(image, (target_width, target_height), interpolation=interpolation)
 
