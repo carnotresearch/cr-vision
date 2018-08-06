@@ -4,28 +4,42 @@ Utility functions for working with image data types
 
 import numpy as np
 
-def is_integer_image(img):
+def is_integer_image(image):
     '''
     Checks if image contains integers
     '''
-    return issubclass(img.dtype.type, np.integer)
+    return issubclass(image.dtype.type, np.integer)
 
 
-def is_floating_image(img):
+def is_floating_image(image):
     '''
     Checks if image contains floating point numbers
     '''
-    return issubclass(img.dtype.type, np.floating)
+    return issubclass(image.dtype.type, np.floating)
 
 
-def peak_value(img):
+def is_gray_scale(image):
+    '''Checks if image is gray scale'''
+    if image.ndim == 2:
+        return True
+    if image.ndim == 3 and image.shape[2] == 1:
+        return True
+    return False
+
+def is_3channel(image):
+    '''Checks if image has 3 channels'''
+    if image.ndim == 3 and image.shape[2] == 3:
+        return True
+    return False
+
+def peak_value(image):
     '''
     Returns the peak value for a given image by its data type
     '''
-    if is_integer_image(img):
-        return np.iinfo(img.dtype).max
-    if is_floating_image(img):
-        return np.finfo(img.dtype).max
+    if is_integer_image(image):
+        return np.iinfo(image.dtype).max
+    if is_floating_image(image):
+        return np.finfo(image.dtype).max
     # Unknown image data type
     return -1
 
