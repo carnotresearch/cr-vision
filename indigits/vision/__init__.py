@@ -16,3 +16,4 @@ from .io import *
 from .video import *
 from .object_tracker import *
 from .saliency import *
+from .core import effects
