@@ -8,12 +8,14 @@ References:
 * https://github.com/PacktPublishing/OpenCV-3-x-with-Python-By-Example
 * https://docs.gimp.org/en/plug-in-convmatrix.html
 * https://stackoverflow.com/questions/22654770/creating-vignette-filter-in-opencv
+* https://www.dyclassroom.com/image-processing-project/how-to-convert-a-color-image-into-sepia-images
 
 '''
 import numpy as np
 import cv2
 from indigits import vision as iv
 
+# pylint: disable=C0103
 
 def mirror_lr(image):
     '''
@@ -313,3 +315,29 @@ def pixelize(image, pixel_size=8):
     image = cv2.resize(image, (0, 0), fx=pixel_size, fy=pixel_size,
                        interpolation=cv2.INTER_NEAREST)
     return image
+
+
+def sepia(image):
+    '''Adds sepia effect to a color image
+
+    Args:
+        image (array): Input image
+
+    Returns:
+        Image with sepia effect
+    '''
+    B, G, R = cv2.split(image)
+    tr = 0.393*R + 0.769*G + 0.189*B
+    tg = 0.349*R + 0.686*G + 0.168*B
+    tb = 0.272*R + 0.534*G + 0.131*B
+    # saturate
+    tr[tr > 255] = 255
+    tg[tg > 255] = 255
+    tb[tb > 255] = 255
+    # convert back to 8-bit
+    tr = tr.astype('uint8')
+    tg = tg.astype('uint8')
+    tb = tb.astype('uint8')
+    # Combine the 3 channel
+    result = cv2.merge([tb, tg, tr])
+    return result
