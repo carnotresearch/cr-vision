@@ -28,6 +28,14 @@ indigits.vision.core.cvt\_color module
     :undoc-members:
     :show-inheritance:
 
+indigits.vision.core.effects module
+-----------------------------------
+
+.. automodule:: indigits.vision.core.effects
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 indigits.vision.core.histogram module
 -------------------------------------
 
@@ -56,6 +64,14 @@ indigits.vision.core.plot module
 --------------------------------
 
 .. automodule:: indigits.vision.core.plot
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+indigits.vision.core.template module
+------------------------------------
+
+.. automodule:: indigits.vision.core.template
     :members:
     :undoc-members:
     :show-inheritance:
