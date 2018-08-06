@@ -12,7 +12,9 @@ Computer Vision Tools and Applications
    :caption: Contents:
 
    nb_basic_image_operations
+   image_processing/index
    source/modules
+
 
 
 Indices and tables
