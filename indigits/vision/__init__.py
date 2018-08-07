@@ -7,7 +7,6 @@ from .misc import *
 from .geom_transform import *
 from .filters import *
 from .edits import *
-from .noise import *
 from .apps import *
 from .errors import *
 from .concurrent import *
