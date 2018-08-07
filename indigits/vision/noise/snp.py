@@ -5,7 +5,7 @@ Adds Salt and Pepper noise to an image
 import cv2
 import numpy as np
 
-from indigits.vision import core
+from indigits.vision import image_processing
 
 class SaltAndPepperNoiseSpec:
     '''
@@ -27,7 +27,7 @@ def add_salt_and_pepper_noise(image, spec=SaltAndPepperNoiseSpec()):
     '''
     rows, cols, _ = image.shape
     # Let's get the maximum value for the image data type
-    peak_value = core.peak_value(image)
+    peak_value = image_processing.peak_value(image)
     pattern = np.random.randint(
         low=0, high=peak_value, size=(rows, cols), dtype=image.dtype)
     pepper_pattern = pattern < peak_value * spec.black_threshold

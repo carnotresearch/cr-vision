@@ -2,7 +2,7 @@
 indigits.vision package
 '''
 # pylint: disable=W0401
-from .core import *
+from .image_processing import *
 from .misc import *
 from .geom_transform import *
 from .filters import *
@@ -16,4 +16,4 @@ from .io import *
 from .video import *
 from .object_tracker import *
 from .saliency import *
-from .core import effects
+from .image_processing import effects

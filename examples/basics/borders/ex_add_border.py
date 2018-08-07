@@ -7,7 +7,7 @@ import os
 import cv2
 from dirsetup import IMAGES_DIR
 from indigits import vision as iv
-from indigits.vision.core import colors
+from indigits.vision.image_processing import colors
 
 lena_path = os.path.join(IMAGES_DIR, 'lena.jpg')
 img = cv2.imread(lena_path)
