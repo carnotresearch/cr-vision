@@ -15,3 +15,6 @@ from .template import *
 # noise related functions
 from .noise_gaussian import *
 from .noise_snp import *
+
+# miscellaneous functions
+from .opencv import *

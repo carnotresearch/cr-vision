@@ -3,7 +3,6 @@ indigits.vision package
 '''
 # pylint: disable=W0401
 from .image_processing import *
-from .misc import *
 from .geom_transform import *
 from .filters import *
 from .edits import *
