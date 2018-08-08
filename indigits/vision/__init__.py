@@ -15,3 +15,4 @@ from .video import *
 from .object_tracker import *
 from .saliency import *
 from .image_processing import effects
+from .retargeting import *
