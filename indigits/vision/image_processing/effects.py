@@ -9,6 +9,8 @@ References:
 * https://docs.gimp.org/en/plug-in-convmatrix.html
 * https://stackoverflow.com/questions/22654770/creating-vignette-filter-in-opencv
 * https://www.dyclassroom.com/image-processing-project/how-to-convert-a-color-image-into-sepia-images
+* https://www.linuxtopia.org/online_books/graphics_tools/gimp_advanced_guide/gimp_guide_node74.html
+* https://stackoverflow.com/questions/2034037/image-embossing-in-python-with-pil-adding-depth-azimuth-etc
 
 '''
 import numpy as np
@@ -16,6 +18,7 @@ import cv2
 from indigits import vision as iv
 
 # pylint: disable=C0103
+
 
 def mirror_lr(image):
     '''
@@ -125,25 +128,60 @@ def monochrome(image):
 
 
 EMBOSS_FILTERS = {
-    'default': np.array([[-2, -1, 0],
-                         [-1, 1, 1],
-                         [0, 1, 2]
-                         ]) / 3,
-    'SW': np.array([[0, -1, -1],
-                    [1, 0, -1],
-                    [1, 1, 0]]),
-    'NE': np.array([[-1, -1, 0],
-                    [-1, 0, 1],
-                    [0, 1, 1]]),
-    'NW': np.array([[1, 0, 0],
-                    [0, 0, 0],
-                    [0, 0, -1]])
+    'default': {
+        'kernel': np.array([[-1, 0, 0],
+                            [0, 1, 0],
+                            [0, 0, 0]
+                            ]),
+        'gray': True,
+        'scale': 1,
+        'offset': 128,
+        'alpha': 1
+    },
+    'sharp_color': {
+        'kernel': np.array([[-2, -1, 0],
+                            [-1, 1, 1],
+                            [0, 1, 2]
+                            ]),
+        'gray': False,
+        'scale': 1,
+        'offset': 0,
+        'alpha': 0.2
+    },
+    'SW': {
+        'kernel': np.array([[0, -1, -1],
+                            [1, 0, -1],
+                            [1, 1, 0]]),
+        'gray': True,
+        'scale': 1,
+        'offset': 128,
+        'alpha': 1
+    },
+    'NE': {
+        'kernel': np.array([[-1, -1, 0],
+                            [-1, 0, 1],
+                            [0, 1, 1]]),
+        'gray': True,
+        'scale': 1,
+        'offset': 128,
+        'alpha': 1
+    },
+    'NW': {
+        'kernel': np.array([[1, 0, 0],
+                            [0, 0, 0],
+                            [0, 0, -1]]
+                           ),
+        'gray': True,
+        'scale': 1,
+        'offset': 128,
+        'alpha': 1
+    }
 }
 
 
-def emboss(image, direction='default'):
+def emboss(image, method='default'):
     '''
-    Creates an embossed version of an image in a given direction
+    Creates an embossed version of an image using a given method
 
     Args:
         image (array): Input image
@@ -151,11 +189,26 @@ def emboss(image, direction='default'):
     Returns:
         Embossed image
     '''
-    if direction != 'default':
+    method = EMBOSS_FILTERS[method]
+    if method['gray']:
         image = iv.bgr_to_gray(image)
-    kernel = EMBOSS_FILTERS[direction]
-    image = cv2.filter2D(image, -1, kernel) + 128
-    return image
+    # capture the original data type of image
+    image_type = image.dtype
+    # perform filtering
+    embossing = cv2.filter2D(image, cv2.CV_64F, method['kernel'])
+    embossing = embossing * method['scale']
+    alpha = method['alpha']
+    offset = method['offset']
+    if alpha == 1:
+        # compute absolute values
+        # embossing = np.absolute(embossing)
+        # add offset
+        embossing = embossing + offset
+        return embossing.astype(image_type)
+    else:
+        result = cv2.addWeighted(image.astype(
+            embossing.dtype), 1 - alpha, embossing, alpha, offset)
+        return result.astype(image_type)
 
 
 def motion_blur(image, kernel_size=3, horz=True):
@@ -341,3 +394,63 @@ def sepia(image):
     # Combine the 3 channel
     result = cv2.merge([tb, tg, tr])
     return result
+
+
+_SPECIAL_FILTERS = {
+    'contour' : {
+        'kernel': np.array([
+            [-1, -1, -1],
+            [-1,  8, -1],
+            [-1, -1, -1]
+        ]),
+        'gray': True,
+        'scale': 1,
+        'offset': 255,
+    }
+}
+
+def _apply_filter(image, filter_name):
+    filter = _SPECIAL_FILTERS[filter_name]
+    if filter['gray']:
+        image = iv.bgr_to_gray(image)
+    kernel = filter['kernel']
+    scale = filter['scale']
+    offset = filter['offset']
+    kernel = kernel / scale
+    result = cv2.filter2D(image, -1, kernel, delta=offset)
+    return result
+
+
+def contour(image):
+    '''Creates a contour on the image'''
+    return _apply_filter(image, 'contour')
+
+
+def emboss3d(image, azimuth=np.pi/2, elevation=np.pi/4, depth=10):
+    image = iv.bgr_to_gray(image)
+    image = image.astype('float')
+    gradients = np.gradient(image)
+    grad_x, grad_y = gradients
+    # projection of unit vector to light source on to ground
+    ground_length = np.cos(elevation)
+    # the components in x and y directions
+    ground_x = ground_length * np.cos(azimuth)
+    ground_y = ground_length * np.sin(azimuth)
+    # projection of unit vector to light source in z direction
+    up_z = np.sin(elevation)
+    # adjusting the gradients by depth factor
+    grad_x = grad_x * depth / 100
+    grad_y = grad_y * depth / 100
+    # gradient magnitudes [add a little extra to ensure magnitude is non-zero]
+    mag = np.sqrt(grad_x**2 + grad_y**2 + 1)
+    unit_x = grad_x /mag
+    unit_y = grad_y / mag
+    unit_z = 1. / mag
+    # compute the projection of gradient to the direction of light source
+    projection = (ground_x*unit_x + ground_y*unit_y + up_z*unit_z)
+    # map to 0-255 range
+    projection = 255*projection
+    projection = projection.clip(0, 255)
+    projection = projection.astype('uint8')
+    return projection
+
