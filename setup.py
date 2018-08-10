@@ -94,7 +94,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            #'iv-dummy=indigits.vision.tools:dummy_tool',
+            'iv-shrink-stretch=indigits.vision.edits.animation:stretch_and_shrink_app',
         ],
     },
 )

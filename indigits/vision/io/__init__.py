@@ -5,3 +5,4 @@ IO package
 from .interfaces import  *
 from .videocapture import  *
 from .display import *
+from .videowriter import *
