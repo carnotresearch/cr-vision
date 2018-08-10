@@ -3,5 +3,7 @@ scipy
 matplotlib
 scikit-image
 opencv-contrib-python
+imageio
 ipykernel
 nbsphinx
+click
