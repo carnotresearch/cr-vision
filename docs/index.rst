@@ -11,7 +11,6 @@ Computer Vision Tools and Applications
    :maxdepth: 2
    :caption: Contents:
 
-   nb_basic_image_operations
    image_processing/index
    source/modules
 
