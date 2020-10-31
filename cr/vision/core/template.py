@@ -9,8 +9,9 @@ def match_template_multscale(image, template):
     '''Matches a template inside an image at multiple scales
     
     Args:
-        image (2d-array): Image inside which the template is to be matched
-            Image must be 8 bit gray-level or 32-bit floating point.
+        image (2d-array): Image inside which the template is to be matched 
+        Image must be 8 bit gray-level or 32-bit floating point.
+
         template (2d-array): The template image which is to be searched inside image.
 
     Returns:

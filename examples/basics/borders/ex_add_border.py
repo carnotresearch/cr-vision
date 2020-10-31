@@ -7,7 +7,7 @@ import os
 import cv2
 from dirsetup import IMAGES_DIR
 from cr import vision as vision
-from cr.vision.image_processing import colors
+from cr.vision import colors
 
 lena_path = os.path.join(IMAGES_DIR, 'lena.jpg')
 img = cv2.imread(lena_path)
