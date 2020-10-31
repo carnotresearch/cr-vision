@@ -8,3 +8,4 @@ ipykernel
 nbsphinx
 click
 sphinx_rtd_theme
+pandoc
