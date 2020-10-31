@@ -5,7 +5,7 @@ Adds Salt and Pepper noise to an image
 import cv2
 import numpy as np
 
-from indigits.vision import image_processing
+from cr.vision import image_processing
 
 class SaltAndPepperNoiseSpec:
     '''

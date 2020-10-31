@@ -7,7 +7,7 @@ to nearest signed type.
 import numpy as np
 import cv2
 
-from indigits import vision as iv
+from cr import vision as vision
 
 
 a = np.arange(9, dtype=np.uint8).reshape(3, 3)
@@ -22,20 +22,20 @@ print(c)
 d = cv2.subtract(b, a)
 print(d)
 
-e = iv.signed_subtract(b, a)
+e = vision.signed_subtract(b, a)
 print(e.dtype)
 print(e)
 
 b = np.full((3, 3), 4, np.uint16)
 print(b)
 
-e = iv.signed_subtract(b, a)
+e = vision.signed_subtract(b, a)
 print(e.dtype)
 print(e)
 
-f = iv.abs_uint8(e)
+f = vision.abs_uint8(e)
 print(f)
 
 a = np.array([2, 200, 300], dtype=np.int16)
-print(iv.abs_uint8(a))
-print(iv.abs_uint8(a, factor=2))
+print(vision.abs_uint8(a))
+print(vision.abs_uint8(a, factor=2))

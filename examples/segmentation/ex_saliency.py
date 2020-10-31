@@ -2,7 +2,7 @@
 import os
 import logging
 import cv2
-from indigits import vision as iv
+from cr import vision as vision
 from dirsetup import IMAGES_DIR
 
 names = [
@@ -13,9 +13,9 @@ names = [
     'stuff.jpg'
 ]
 
-dm = iv.DisplayManager(['Image', 'Saliency'], gap_x=800)
+dm = vision.DisplayManager(['Image', 'Saliency'], gap_x=800)
 
-saliency = iv.create_static_saliency_fine_grained()
+saliency = vision.create_static_saliency_fine_grained()
 for name in names:
     image_path = os.path.join(IMAGES_DIR, name)
     assert os.path.exists(image_path)

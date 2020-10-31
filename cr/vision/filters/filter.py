@@ -8,8 +8,8 @@ import numpy as np
 from skimage import img_as_float
 import cv2
 
-from indigits import vision as iv
-from indigits.vision.errors import check_ndim, check_nchannels
+from cr import vision as iv
+from cr.vision.errors import check_ndim, check_nchannels
 
 def filter_2d(image, kernel):
     '''

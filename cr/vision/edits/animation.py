@@ -6,7 +6,7 @@ import click
 import imageio
 from skimage import transform, util
 from skimage import filters, color
-from indigits import vision as iv
+from cr import vision as iv
 
 
 def stretch_and_shrink(image, num_steps=40):

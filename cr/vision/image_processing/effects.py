@@ -15,7 +15,7 @@ References:
 '''
 import numpy as np
 import cv2
-from indigits import vision as iv
+from cr import vision as iv
 
 # pylint: disable=C0103
 

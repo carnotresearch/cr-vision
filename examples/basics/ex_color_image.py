@@ -2,13 +2,13 @@
 Shows how to create single color images
 '''
 import cv2
-from indigits import vision as iv
+from cr import vision as vision
 
-image = iv.single_color_image(500, 500, iv.GOLD)
+image = vision.single_color_image(500, 500, vision.GOLD)
 cv2.imshow('image', image)
 cv2.waitKey()
 
-image = iv.single_color_image(500, 500, 128)
+image = vision.single_color_image(500, 500, 128)
 cv2.imshow('image', image)
 cv2.waitKey()
 

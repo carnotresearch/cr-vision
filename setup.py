@@ -14,7 +14,7 @@ with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='indigits-vision',
+    name='cr-vision',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
@@ -28,11 +28,11 @@ setup(
     url='',
 
     # Author details
-    author='Shailesh Kumar',
-    author_email='shailesh@indigits.com',
+    author='Carnot Research',
+    author_email='contact@carnotresearch.com',
 
     # Choose your license
-    license='Copyright Shailesh Kumar',
+    license='Copyright Carnot Research Pvt. Ltd.',
 
     # See https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -56,7 +56,7 @@ setup(
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
-    packages=['indigits.vision'],
+    packages=['cr.vision'],
 
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
@@ -94,7 +94,7 @@ setup(
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
         'console_scripts': [
-            'iv-shrink-stretch=indigits.vision.edits.animation:stretch_and_shrink_app',
+            'cr-shrink-stretch=cr.vision.edits.animation:stretch_and_shrink_app',
         ],
     },
 )

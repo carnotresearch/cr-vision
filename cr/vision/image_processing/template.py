@@ -3,7 +3,7 @@ Functions for template matching
 '''
 import numpy as np
 import cv2
-from indigits import vision as iv
+from cr import vision as iv
 
 def match_template_multscale(image, template):
     '''Matches a template inside an image at multiple scales

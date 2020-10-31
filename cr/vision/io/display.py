@@ -2,7 +2,7 @@
 Display of frames on screen
 '''
 import cv2
-from indigits import vision as iv
+from cr import vision as iv
 
 class DisplayManager:
     '''

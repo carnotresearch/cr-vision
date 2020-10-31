@@ -4,7 +4,7 @@ Wrapper functions for histogram calculations
 import numpy as np
 import cv2
 
-from indigits.vision.errors import check_u8c1, check_u8c3
+from cr.vision.errors import check_u8c1, check_u8c3
 
 
 def histogram_u8c1(image, mask=None):

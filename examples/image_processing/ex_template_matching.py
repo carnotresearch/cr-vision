@@ -5,7 +5,7 @@ Showing the functionality of template matching
 import os
 import numpy as np
 import cv2
-from indigits import vision as iv
+from cr import vision as vision
 from dirsetup import IMAGES_DIR
 
 names = [
@@ -15,7 +15,7 @@ names = [
     'pug.jpg',
     'stuff.jpg'
 ]
-dm = iv.DisplayManager(['Image', 'Template'], gap_x=800)
+dm = vision.DisplayManager(['Image', 'Template'], gap_x=800)
 for name in names:
     # path of image to read
     image_path = os.path.join(IMAGES_DIR, name)
@@ -35,13 +35,13 @@ for name in names:
     # choose a random smaller width for the template
     target_width = np.random.randint(10, width+1)
     # now resize the template to this random size preserving aspect ratio
-    template = iv.resize_by_width(template, target_width)
+    template = vision.resize_by_width(template, target_width)
     # match the template
-    result = iv.match_template_multscale(image, template)
+    result = vision.match_template_multscale(image, template)
     # unpack the matching details
     (max_value, rectangle, scale) = result
     # draw the matched rectangle
-    cv2.rectangle(image, *rectangle, color=iv.GREEN, thickness=2)
+    cv2.rectangle(image, *rectangle, color=vision.GREEN, thickness=2)
     # show the template and its match inside image
     dm.show_all(image, template)
     key = cv2.waitKey(0) & 0xFF

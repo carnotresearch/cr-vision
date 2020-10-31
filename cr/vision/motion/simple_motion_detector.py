@@ -2,7 +2,7 @@
 Detects motion in video
 '''
 import cv2
-from indigits import vision as iv
+from cr import vision as iv
 
 
 

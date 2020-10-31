@@ -13,7 +13,7 @@ References:
 import logging
 import numpy as np
 from skimage import transform, img_as_float
-from indigits import vision as iv
+from cr import vision as iv
 
 
 def find_vertical_seam(vseam_matrix):
