@@ -1,21 +1,21 @@
-indigits.vision.apps package
+cr.vision.apps package
 ============================
 
 Submodules
 ----------
 
-indigits.vision.apps.capture module
+cr.vision.apps.capture module
 -----------------------------------
 
-.. automodule:: indigits.vision.apps.capture
+.. automodule:: cr.vision.apps.capture
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.apps.ipcam module
+cr.vision.apps.ipcam module
 ---------------------------------
 
-.. automodule:: indigits.vision.apps.ipcam
+.. automodule:: cr.vision.apps.ipcam
     :members:
     :undoc-members:
     :show-inheritance:
@@ -24,7 +24,7 @@ indigits.vision.apps.ipcam module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.apps
+.. automodule:: cr.vision.apps
     :members:
     :undoc-members:
     :show-inheritance:

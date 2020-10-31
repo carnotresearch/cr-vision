@@ -1,13 +1,13 @@
-indigits.vision.object\_detection package
+cr.vision.object\_detection package
 =========================================
 
 Submodules
 ----------
 
-indigits.vision.object\_detection.nms module
+cr.vision.object\_detection.nms module
 --------------------------------------------
 
-.. automodule:: indigits.vision.object_detection.nms
+.. automodule:: cr.vision.object_detection.nms
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ indigits.vision.object\_detection.nms module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.object_detection
+.. automodule:: cr.vision.object_detection
     :members:
     :undoc-members:
     :show-inheritance:

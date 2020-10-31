@@ -1,29 +1,29 @@
-indigits.vision.edits package
+cr.vision.edits package
 =============================
 
 Submodules
 ----------
 
-indigits.vision.edits.border module
+cr.vision.edits.border module
 -----------------------------------
 
-.. automodule:: indigits.vision.edits.border
+.. automodule:: cr.vision.edits.border
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.edits.logo module
+cr.vision.edits.logo module
 ---------------------------------
 
-.. automodule:: indigits.vision.edits.logo
+.. automodule:: cr.vision.edits.logo
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.edits.placement module
+cr.vision.edits.placement module
 --------------------------------------
 
-.. automodule:: indigits.vision.edits.placement
+.. automodule:: cr.vision.edits.placement
     :members:
     :undoc-members:
     :show-inheritance:
@@ -32,7 +32,7 @@ indigits.vision.edits.placement module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.edits
+.. automodule:: cr.vision.edits
     :members:
     :undoc-members:
     :show-inheritance:

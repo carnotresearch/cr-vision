@@ -1,13 +1,13 @@
-indigits.vision.saliency package
+cr.vision.saliency package
 ================================
 
 Submodules
 ----------
 
-indigits.vision.saliency.saliency module
+cr.vision.saliency.saliency module
 ----------------------------------------
 
-.. automodule:: indigits.vision.saliency.saliency
+.. automodule:: cr.vision.saliency.saliency
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ indigits.vision.saliency.saliency module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.saliency
+.. automodule:: cr.vision.saliency
     :members:
     :undoc-members:
     :show-inheritance:

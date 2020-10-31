@@ -1,21 +1,21 @@
-indigits.vision.noise package
+cr.vision.noise package
 =============================
 
 Submodules
 ----------
 
-indigits.vision.noise.gaussian module
+cr.vision.noise.gaussian module
 -------------------------------------
 
-.. automodule:: indigits.vision.noise.gaussian
+.. automodule:: cr.vision.noise.gaussian
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.noise.snp module
+cr.vision.noise.snp module
 --------------------------------
 
-.. automodule:: indigits.vision.noise.snp
+.. automodule:: cr.vision.noise.snp
     :members:
     :undoc-members:
     :show-inheritance:
@@ -24,7 +24,7 @@ indigits.vision.noise.snp module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.noise
+.. automodule:: cr.vision.noise
     :members:
     :undoc-members:
     :show-inheritance:

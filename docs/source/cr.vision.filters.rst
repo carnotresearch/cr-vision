@@ -1,21 +1,21 @@
-indigits.vision.filters package
+cr.vision.filters package
 ===============================
 
 Submodules
 ----------
 
-indigits.vision.filters.filter module
+cr.vision.filters.filter module
 -------------------------------------
 
-.. automodule:: indigits.vision.filters.filter
+.. automodule:: cr.vision.filters.filter
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.filters.kernels module
+cr.vision.filters.kernels module
 --------------------------------------
 
-.. automodule:: indigits.vision.filters.kernels
+.. automodule:: cr.vision.filters.kernels
     :members:
     :undoc-members:
     :show-inheritance:
@@ -24,7 +24,7 @@ indigits.vision.filters.kernels module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.filters
+.. automodule:: cr.vision.filters
     :members:
     :undoc-members:
     :show-inheritance:

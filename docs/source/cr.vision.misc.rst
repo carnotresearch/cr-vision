@@ -1,13 +1,13 @@
-indigits.vision.video package
-=============================
+cr.vision.misc package
+============================
 
 Submodules
 ----------
 
-indigits.vision.video.frame module
+cr.vision.misc.opencv module
 ----------------------------------
 
-.. automodule:: indigits.vision.video.frame
+.. automodule:: cr.vision.misc.opencv
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ indigits.vision.video.frame module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.video
+.. automodule:: cr.vision.misc
     :members:
     :undoc-members:
     :show-inheritance:

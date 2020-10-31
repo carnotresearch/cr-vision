@@ -1,13 +1,13 @@
-indigits.vision.object\_tracker package
+cr.vision.object\_tracker package
 =======================================
 
 Submodules
 ----------
 
-indigits.vision.object\_tracker.object\_tracker module
+cr.vision.object\_tracker.object\_tracker module
 ------------------------------------------------------
 
-.. automodule:: indigits.vision.object_tracker.object_tracker
+.. automodule:: cr.vision.object_tracker.object_tracker
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ indigits.vision.object\_tracker.object\_tracker module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.object_tracker
+.. automodule:: cr.vision.object_tracker
     :members:
     :undoc-members:
     :show-inheritance:

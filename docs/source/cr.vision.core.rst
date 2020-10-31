@@ -1,93 +1,93 @@
-indigits.vision.core package
+cr.vision package 
 ============================
 
 Submodules
 ----------
 
-indigits.vision.core.colors module
+cr.vision.colors module
 ----------------------------------
 
-.. automodule:: indigits.vision.core.colors
+.. automodule:: cr.vision.colors
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.contour module
+cr.vision.contour module
 -----------------------------------
 
-.. automodule:: indigits.vision.core.contour
+.. automodule:: cr.vision.contour
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.cvt\_color module
+cr.vision.cvt\_color module
 --------------------------------------
 
-.. automodule:: indigits.vision.core.cvt_color
+.. automodule:: cr.vision.cvt_color
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.effects module
+cr.vision.effects module
 -----------------------------------
 
-.. automodule:: indigits.vision.core.effects
+.. automodule:: cr.vision.effects
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.histogram module
+cr.vision.histogram module
 -------------------------------------
 
-.. automodule:: indigits.vision.core.histogram
+.. automodule:: cr.vision.histogram
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.misc module
+cr.vision.misc module
 --------------------------------
 
-.. automodule:: indigits.vision.core.misc
+.. automodule:: cr.vision.misc
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.operations module
+cr.vision.operations module
 --------------------------------------
 
-.. automodule:: indigits.vision.core.operations
+.. automodule:: cr.vision.operations
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.plot module
+cr.vision.plot module
 --------------------------------
 
-.. automodule:: indigits.vision.core.plot
+.. automodule:: cr.vision.plot
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.template module
+cr.vision.template module
 ------------------------------------
 
-.. automodule:: indigits.vision.core.template
+.. automodule:: cr.vision.template
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.threshold module
+cr.vision.threshold module
 -------------------------------------
 
-.. automodule:: indigits.vision.core.threshold
+.. automodule:: cr.vision.threshold
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.core.types module
+cr.vision.types module
 ---------------------------------
 
-.. automodule:: indigits.vision.core.types
+.. automodule:: cr.vision.types
     :members:
     :undoc-members:
     :show-inheritance:
@@ -96,7 +96,7 @@ indigits.vision.core.types module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.core
+.. automodule:: cr.vision.core
     :members:
     :undoc-members:
     :show-inheritance:

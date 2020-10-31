@@ -1,29 +1,29 @@
-indigits.vision.geom\_transform package
+cr.vision.geom\_transform package
 =======================================
 
 Submodules
 ----------
 
-indigits.vision.geom\_transform.projective2d\_actions module
+cr.vision.geom\_transform.projective2d\_actions module
 ------------------------------------------------------------
 
-.. automodule:: indigits.vision.geom_transform.projective2d_actions
+.. automodule:: cr.vision.geom_transform.projective2d_actions
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.geom\_transform.projective2d\_matrices module
+cr.vision.geom\_transform.projective2d\_matrices module
 -------------------------------------------------------------
 
-.. automodule:: indigits.vision.geom_transform.projective2d_matrices
+.. automodule:: cr.vision.geom_transform.projective2d_matrices
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.geom\_transform.scaling module
+cr.vision.geom\_transform.scaling module
 ----------------------------------------------
 
-.. automodule:: indigits.vision.geom_transform.scaling
+.. automodule:: cr.vision.geom_transform.scaling
     :members:
     :undoc-members:
     :show-inheritance:
@@ -32,7 +32,7 @@ indigits.vision.geom\_transform.scaling module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.geom_transform
+.. automodule:: cr.vision.geom_transform
     :members:
     :undoc-members:
     :show-inheritance:

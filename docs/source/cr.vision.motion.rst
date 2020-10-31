@@ -1,13 +1,13 @@
-indigits.vision.motion package
+cr.vision.motion package
 ==============================
 
 Submodules
 ----------
 
-indigits.vision.motion.simple\_motion\_detector module
+cr.vision.motion.simple\_motion\_detector module
 ------------------------------------------------------
 
-.. automodule:: indigits.vision.motion.simple_motion_detector
+.. automodule:: cr.vision.motion.simple_motion_detector
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ indigits.vision.motion.simple\_motion\_detector module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.motion
+.. automodule:: cr.vision.motion
     :members:
     :undoc-members:
     :show-inheritance:

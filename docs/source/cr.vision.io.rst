@@ -1,37 +1,37 @@
-indigits.vision.io package
+cr.vision.io package
 ==========================
 
 Submodules
 ----------
 
-indigits.vision.io.display module
+cr.vision.io.display module
 ---------------------------------
 
-.. automodule:: indigits.vision.io.display
+.. automodule:: cr.vision.io.display
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.io.interfaces module
+cr.vision.io.interfaces module
 ------------------------------------
 
-.. automodule:: indigits.vision.io.interfaces
+.. automodule:: cr.vision.io.interfaces
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.io.videocapture module
+cr.vision.io.videocapture module
 --------------------------------------
 
-.. automodule:: indigits.vision.io.videocapture
+.. automodule:: cr.vision.io.videocapture
     :members:
     :undoc-members:
     :show-inheritance:
 
-indigits.vision.io.videowriter module
+cr.vision.io.videowriter module
 -------------------------------------
 
-.. automodule:: indigits.vision.io.videowriter
+.. automodule:: cr.vision.io.videowriter
     :members:
     :undoc-members:
     :show-inheritance:
@@ -40,7 +40,7 @@ indigits.vision.io.videowriter module
 Module contents
 ---------------
 
-.. automodule:: indigits.vision.io
+.. automodule:: cr.vision.io
     :members:
     :undoc-members:
     :show-inheritance:
