@@ -21,9 +21,9 @@ autodoc_mock_imports = ["_tkinter"]
 
 # -- Project information -----------------------------------------------------
 
-project = "InDigits.Vision"
-copyright = "2018, Shailesh Kumar"
-author = "Shailesh Kumar"
+project = "CR.Vision"
+copyright = "2020, Carnot Research Pvt. Ltd."
+author = "Carnot Research"
 
 # The short X.Y version
 version = ""
@@ -111,7 +111,7 @@ html_static_path = ["_static"]
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "InDigitsVision"
+htmlhelp_basename = "CRVision"
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -135,7 +135,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, "InDigitsVision.tex", "InDigits.Vision", "Shailesh Kumar", "manual"),
+    (master_doc, "CRVision.tex", "CR.Vision", "Carnot Research", "manual"),
 ]
 
 
@@ -143,7 +143,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [(master_doc, "indigitsvision", "InDigits.Vision", [author], 1)]
+man_pages = [(master_doc, "crvision", "CR.Vision", [author], 1)]
 
 
 # -- Options for Texinfo output ----------------------------------------------
@@ -154,10 +154,10 @@ man_pages = [(master_doc, "indigitsvision", "InDigits.Vision", [author], 1)]
 texinfo_documents = [
     (
         master_doc,
-        "InDigitsVision",
-        "InDigits.Vision",
+        "CRVision",
+        "CR.Vision",
         author,
-        "InDigitsVision",
+        "CRVision",
         "One line description of project.",
         "Miscellaneous",
     ),
