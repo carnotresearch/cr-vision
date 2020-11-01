@@ -104,3 +104,8 @@ venv.bak/
 .mypy_cache/
 .vscode/
 data/videos/*.mp4
+*.avi
+*.mp3
+*.webm
+*.ogg
+*.mp4
