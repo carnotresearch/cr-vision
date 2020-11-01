@@ -16,3 +16,5 @@ from .object_tracker import *
 from .saliency import *
 from .retargeting import *
 from .edits import animation
+
+from .core import effects
