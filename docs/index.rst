@@ -5,9 +5,10 @@
 
 CR.Vision
 ===========================================
-Computer Vision Tools and Applications
+Computer Vision Tools and Applications by Carnot Research
 
-GITHUB: https://github.com/carnotresearch/cr-vision
+
+GITHUB Repo: `cr-vision <https://github.com/carnotresearch/cr-vision>`_
 
 .. toctree::
    :maxdepth: 2
