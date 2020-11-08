@@ -8,12 +8,19 @@ import numpy as np
 from skimage import img_as_float
 import cv2
 
-from cr import vision as iv
+from cr import vision
 from cr.vision.errors import check_ndim, check_nchannels
 
 def filter_2d(image, kernel):
-    '''
-    Filters an image retaining its depth
+    '''Filters an image retaining its depth
+
+    :param image: Input image
+    :type image: array_like
+    :param kernel: 2D convolutional Kernel to apply on image
+    :type kernel: array_like
+    
+    :return: Filtered image
+    :rtype: ndarray
     '''
     # we set ddepth=-1 in the folllowing call
     return cv2.filter2D(image, -1, kernel)
@@ -21,8 +28,21 @@ def filter_2d(image, kernel):
 
 def gaussian_blur(image, kernel_size=5, sigma=0):
     '''
-    Filters an image using Gaussian filter of a given kernel size where we
-    assume that the filter is symmetric.
+    Filters an image using Gaussian filter of a given kernel size
+
+    :param image: Input image
+    :type image: array_like
+    :param kernel_size: Size of Gaussian kernel, defaults to 5
+    :type kernel_size: int, optional
+    :param sigma: Kernel standard deviation
+    :type sigma: double, optional
+
+    :return: Gaussian blurred image
+    :rtype: ndarray
+
+    Remarks
+
+    * We assume that the filter is symmetric.
     '''
     kernel_size = (kernel_size, kernel_size)
     return cv2.GaussianBlur(image, kernel_size, sigma)
@@ -48,7 +68,7 @@ def sobel_y(image, ddepth=cv2.CV_32F, ksize=3):
 
 def sobel_energy_l1(image):
     '''Computes the energy matrix for the image using sobel gradients by taking their absolute sums'''
-    image = iv.bgr_to_gray(image)
+    image = vision.bgr_to_gray(image)
     # bring image to 0,1 range
     image = img_as_float(image)
     x_g = sobel_x(image, ddepth=cv2.CV_64F)
@@ -58,7 +78,7 @@ def sobel_energy_l1(image):
 
 def sobel_energy_l2(image):
     '''Computes the energy matrix for the image using sobel gradients by computing the gradient magnitude'''
-    image = iv.bgr_to_gray(image)
+    image = vision.bgr_to_gray(image)
     # bring image to 0,1 range
     image = img_as_float(image)
     x_g = sobel_x(image)
