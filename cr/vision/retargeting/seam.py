@@ -3,24 +3,77 @@ Implementation of seam carving method
 
 References:
 
-    * https://github.com/vivianhylee/seam-carving/blob/master/seam_carving.py
-    * https://github.com/PacktPublishing/OpenCV-3-x-with-Python-By-Example/tree/master/Chapter06
-    * https://www.pyimagesearch.com/2017/01/23/seam-carving-with-opencv-python-and-scikit-image/
-    * http://scikit-image.org/docs/dev/api/skimage.transform.html#skimage.transform.seam_carve
-    * http://scikit-image.org/docs/dev/auto_examples/transform/plot_seam_carving.html
+    * `Seam Carving Python Module by Vivian Hylee <https://github.com/vivianhylee/seam-carving/blob/master/seam_carving.py>`_
+    * `Source Code for OpenCV 3.x with Python By Example, Chapter 6 <https://github.com/PacktPublishing/OpenCV-3-x-with-Python-By-Example/tree/master/Chapter06>`_
+    * `2017, Adrian Roserbrock, Seam carving with OpenCV, Python, and scikit-image  <https://www.pyimagesearch.com/2017/01/23/seam-carving-with-opencv-python-and-scikit-image/>`_
+    * `scikit-image transform module <http://scikit-image.org/docs/dev/api/skimage.transform.html#skimage.transform.seam_carve>`_
+    * `scikit-image Seam Carving <http://scikit-image.org/docs/dev/auto_examples/transform/plot_seam_carving.html>`_
 
 '''
 import logging
 import numpy as np
 from skimage import transform, img_as_float
-from cr import vision as iv
+from cr import vision
+
+
+def seam_carve(image, target_width, target_height, energy_map=vision.sobel_energy_l1):
+    '''Converts an image into target width and height by using seam carving
+
+    :param image: Input image to be reduced to target width and height
+    :type image: array_like
+    :param target_width: target width of image
+    :type target_width: int
+    :param target_height: target height of image
+    :type target_height: int
+    :param energy_map: A function used to construct the energy matrix for the image
+    :type energy_map: function
+
+    :return: Seam carved image in which vertical and horizontal seams
+        have been identified and removed to meet the target image size.
+    :rtype: ndarray
+
+    '''
+    src_height, src_width = image.shape[:2]
+    t_height = int(float(src_height) * target_width / src_width)
+    if t_height > target_height:
+        logging.info('Reducing image size to %d x %d', target_width, t_height)
+        # Let's do a first level resizing
+        image = vision.resize_by_width(image, target_width)
+        src_height, src_width = image.shape[:2]
+    t_width = int(float(src_width) * target_height / src_height)
+    if t_width > target_width:
+        logging.info('Reducing image size to %d x %d', t_width, target_height)
+        image = vision.resize_by_height(image, target_height)
+        src_height, src_width = image.shape[:2]
+    if target_width < src_width:
+        # compute the energy matrix for the image
+        energy_matrix = energy_map(image)
+        # We need to remove some vertical seams
+        num_seams_to_remove = src_width - target_width
+        logging.info('Removing %d vertical seams', num_seams_to_remove)
+        image = transform.seam_carve(image, energy_matrix,
+                                     'vertical', num_seams_to_remove)
+        image = (image*255).astype('uint8')
+    if target_height < src_height:
+        # compute the energy matrix for the image
+        energy_matrix = energy_map(image)
+        # We need to remove some horizontal seams
+        num_seams_to_remove = src_height - target_height
+        logging.info('Removing %d horizontal seams', num_seams_to_remove)
+        image = transform.seam_carve(image, energy_matrix,
+                                     'horizontal', num_seams_to_remove)
+        image = (image*255).astype('uint8')
+    return image
 
 
 def find_vertical_seam(vseam_matrix):
     '''Finds the indices of the vertical seam with minimum energy
 
-    Args:
-        vseam_matrix (2d array): matrix of vertical seams
+    :param vseam_matrix: matrix of vertical seams
+    :type vseam_matrix: array-2d
+
+    :return: Indices of the vertical seam with minimum energy
+    :rtype: uint32 array
     '''
     # the number of rows and columns in the cumulative energy matrix
     rows, cols = vseam_matrix.shape
@@ -49,7 +102,17 @@ def find_vertical_seam(vseam_matrix):
 
 
 def delete_vertical_seam(image, seam):
-    '''Deletes a vertical seam from the image'''
+    '''Deletes a vertical seam from the image
+
+    :param image: Input image
+    :type image: array_like
+
+    :param seam: Indices of the vertical seam to be deleted
+    :type seam: uint32 array-1d
+
+    :return: Image with the vertical seam deleted
+    :rtype: ndarray
+    '''
     rows, cols = image.shape[:2]
     if image.ndim == 2:
         out_image = np.zeros((rows, cols-1), dtype=image.dtype)
@@ -101,7 +164,17 @@ def find_horizontal_seam(hseam_matrix):
 
 
 def delete_horizontal_seam(image, seam):
-    '''Deletes a horizonal seam from the image'''
+    '''Deletes a horizonal seam from the image
+
+    :param image: Input image
+    :type image: array_like
+
+    :param seam: Indices of the horizontal seam to be deleted
+    :type seam: uint32 array-1d
+
+    :return: Image with the horizontal seam deleted
+    :rtype: ndarray
+    '''
     n_rows, n_cols = image.shape[:2]
     if image.ndim == 2:
         out_image = np.zeros((n_rows-1, n_cols), dtype=image.dtype)
@@ -137,48 +210,6 @@ def reduce_height_by_seam_carving(image, target_height, energy_map):
         horizontal_seams = compute_horizontal_seams(energy_matrix)
         seam = find_horizontal_seam(horizontal_seams)
         image = delete_horizontal_seam(image, seam)
-    return image
-
-
-def seam_carve(image, target_width, target_height, energy_map=iv.sobel_energy_l1):
-    '''Converts an image into target width and height by using seam carving
-
-    Args:
-        image(ndarray): Image to be retargeted
-        target_width(int): target width of image
-        target_height(int): target height of image
-        energy_map: A function used to construct the energy matrix for the image
-    '''
-    src_height, src_width = image.shape[:2]
-    t_height = int(float(src_height) * target_width / src_width)
-    if t_height > target_height:
-        logging.info('Reducing image size to %d x %d', target_width, t_height)
-        # Let's do a first level resizing
-        image = iv.resize_by_width(image, target_width)
-        src_height, src_width = image.shape[:2]
-    t_width = int(float(src_width) * target_height / src_height)
-    if t_width > target_width:
-        logging.info('Reducing image size to %d x %d', t_width, target_height)
-        image = iv.resize_by_height(image, target_height)
-        src_height, src_width = image.shape[:2]
-    if target_width < src_width:
-        # compute the energy matrix for the image
-        energy_matrix = energy_map(image)
-        # We need to remove some vertical seams
-        num_seams_to_remove = src_width - target_width
-        logging.info('Removing %d vertical seams', num_seams_to_remove)
-        image = transform.seam_carve(image, energy_matrix,
-                                     'vertical', num_seams_to_remove)
-        image = (image*255).astype('uint8')
-    if target_height < src_height:
-        # compute the energy matrix for the image
-        energy_matrix = energy_map(image)
-        # We need to remove some horizontal seams
-        num_seams_to_remove = src_height - target_height
-        logging.info('Removing %d horizontal seams', num_seams_to_remove)
-        image = transform.seam_carve(image, energy_matrix,
-                                     'horizontal', num_seams_to_remove)
-        image = (image*255).astype('uint8')
     return image
 
 
