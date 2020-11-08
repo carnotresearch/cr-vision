@@ -333,7 +333,7 @@ def enhance_contrast(image):
         # Extract Y channel
         y = image_yuv[:, :, 0]
     else:
-        raise vision.IVError("Invalid image format")
+        raise vision.CRVError("Invalid image format")
     # perform histogram equalization on the grayscale y channel
     y = cv2.equalizeHist(y)
     if vision.is_gray_scale(image):
