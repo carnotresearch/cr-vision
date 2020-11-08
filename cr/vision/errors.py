@@ -1,16 +1,36 @@
 '''
-Exception classes for indigits.vision library
+Exception classes for cr-vision library
 '''
 
 # Definitive guide to Python exceptions https://julien.danjou.info/python-exceptions-guide/
 
 
-class IVError(Exception):
+class CRVError(Exception):
     '''Base exception class'''
 
 
-class InvalidNumDimensionsError(IVError):
+class InvalidNumDimensionsError(CRVError):
     '''Invalid number of dimensions error'''
+
+class InvalidNumChannelsError(CRVError):
+    ''' Invalid number of channels error'''
+
+    def __init__(self, expected_channels, actual_channels):
+        message = 'Invalid number of channels. Expected: {}, Actual: {}'.format(
+            expected_channels, actual_channels)
+        super().__init__(message)
+
+
+class NotU8C1Error(CRVError):
+    '''Image is not grayscale 8 bit unsigned'''
+
+
+class NotU8C3Error(CRVError):
+    '''Image is not 8 bit unsigned 3 channel color image'''
+
+
+class UnsupportedImageFormatError(CRVError):
+    """Unsupported image format"""
 
 def check_ndim(actual_ndim, expected_min_ndim=None, expected_max_ndim=None):
     ''' Checks if the number of dimensions is correct'''
@@ -36,28 +56,10 @@ def check_ndim(actual_ndim, expected_min_ndim=None, expected_max_ndim=None):
         raise InvalidNumDimensionsError(message)
 
 
-class InvalidNumChannelsError(IVError):
-    ''' Invalid number of channels error'''
-
-    def __init__(self, expected_channels, actual_channels):
-        message = 'Invalid number of channels. Expected: {}, Actual: {}'.format(
-            expected_channels, actual_channels)
-        super().__init__(message)
-
-
 def check_nchannels(expected_channels, actual_channels):
     '''Checks if number of channels is correct'''
     if actual_channels != expected_channels:
         raise InvalidNumChannelsError(expected_channels, actual_channels)
-
-class NotU8C1Error(IVError):
-    '''Image is not grayscale 8 bit unsigned'''
-
-
-class NotU8C3Error(IVError):
-    '''Image is not 8 bit unsigned 3 channel color image'''
-
-
 
 def check_u8c1(image):
     '''Checks that the image is an unsigned 8 bit image with one channel'''
@@ -83,3 +85,12 @@ def check_u8c3(image):
         raise NotU8C3Error('Image must have 3 dimensions')
     if image.shape[2] != 3:
         raise NotU8C3Error('Image must have 3 channels')
+
+
+
+def error_unsupported_image_format(format=None):
+    """Raises UnsupportedImageFormatError exception"""
+    if format is None:
+        raise UnsupportedImageFormatError("Unsupported image format")
+    message = "Unsupported image format: {}".format(format)
+    raise UnsupportedImageFormatError(message)
