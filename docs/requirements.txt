@@ -9,3 +9,6 @@ nbsphinx
 click
 sphinx_rtd_theme
 pandoc
+sk-video
+csv
+rx

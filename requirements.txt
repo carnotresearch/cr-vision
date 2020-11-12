@@ -7,3 +7,6 @@ imageio
 ipykernel
 nbsphinx
 click
+sk-video
+csv
+rx
