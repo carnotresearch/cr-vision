@@ -109,3 +109,4 @@ data/videos/*.mp4
 *.webm
 *.ogg
 *.mp4
+examples/junk/*
