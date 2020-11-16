@@ -54,6 +54,13 @@ class VideoCaptureSequence(FrameSequence):
         #  Ensure cleanup
         self.stop()
 
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.stop()
+
 class WebcamSequence(VideoCaptureSequence):
     '''A frame sequence from webcamp'''
 
