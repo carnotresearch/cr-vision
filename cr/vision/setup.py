@@ -53,7 +53,9 @@ class _Resource:
 
 _KNOWN_RESOURCES = [
     _Resource(name="haarcascade_frontalface_default.xml", 
-        uri="https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml")
+        uri="https://raw.githubusercontent.com/opencv/opencv/master/data/haarcascades/haarcascade_frontalface_default.xml"),
+    _Resource(name="lbfmodel.yaml", 
+        uri="https://raw.githubusercontent.com/kurnianggoro/GSOC2017/master/data/lbfmodel.yaml")
 ]
 
 
