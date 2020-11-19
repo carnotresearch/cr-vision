@@ -43,6 +43,8 @@ def areas(boxes, box_type="xywh"):
 
 
 def xywh_to_ltrb(boxes):
+    if boxes is None or len(boxes) == 0:
+        return boxes
     x = boxes[:, 0]
     y = boxes[:, 1]
     w = boxes[:, 2]
@@ -54,6 +56,8 @@ def xywh_to_ltrb(boxes):
 
 
 def ltrb_to_xywh(boxes):
+    if boxes is None or len(boxes) == 0:
+        return boxes
     x0 = boxes[:, 0]
     y0 = boxes[:, 1]
     x1 = boxes[:, 2]
@@ -87,9 +91,9 @@ def nms(bounding_boxes, scores=None, overlap_threshold=0.3):
         * Need to consider only those rectangles which are nearby.
 
     '''
-    if bounding_boxes.size == 0:
+    if bounding_boxes is None or len(bounding_boxes) == 0 or  bounding_boxes.size == 0:
         # There is nothing to do
-        return []
+        return bounding_boxes
     # The top left coordinates
     x_0 = bounding_boxes[:, 0]
     y_0 = bounding_boxes[:, 1]

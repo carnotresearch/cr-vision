@@ -19,3 +19,7 @@ from .noise_snp import *
 # miscellaneous functions
 from .opencv import *
 
+# bounding boxes
+from . import bb
+
+
