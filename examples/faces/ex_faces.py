@@ -7,22 +7,12 @@ image_path =IMAGES_DIR / 'girl.png'
 print (image_path)
 image = cv2.imread(str(image_path))
 
-cascade = 'haarcascade_frontalface_default.xml'
+faceCascade = vision.faces.CascadeDetector()
 
-cascade_path = vision.ensure_resource(cascade)
-
-faceCascade = cv2.CascadeClassifier(str(cascade_path))
-
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+gray = vision.to_gray(image)
 
 # Detect faces in the image
-faces = faceCascade.detectMultiScale(
-    gray,
-    scaleFactor=1.1,
-    minNeighbors=5,
-    minSize=(60, 60),
-    flags = cv2.CASCADE_SCALE_IMAGE
-)
+faces = faceCascade(gray)
 
 print(faces)
 
