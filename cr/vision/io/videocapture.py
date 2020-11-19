@@ -82,3 +82,6 @@ class VideoFileSequence(VideoCaptureSequence):
         if self.stream is None:
             raise IOError(errno.EIO, 'does not appear to be a supported video file', filepath)
         super().__init__()
+        self.width = int(self.stream.get(cv2.CAP_PROP_FRAME_WIDTH))
+        self.height = int(self.stream.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        self.fps = self.stream.get(cv2.CAP_PROP_FPS)
