@@ -18,10 +18,13 @@ class VideoWriter:
         else:
             raise "Invalid fourcc code"
         self.stream = cv2.VideoWriter(filepath, fourcc, fps, frame_size)
+        self.counter = 0
 
     def write(self, frame):
         '''Writes a frame to output file'''
         self.stream.write(frame)
+        self.counter += 1
+        print(self.counter)
 
     def is_open(self):
         '''Returns if the stream is open for writing'''
@@ -40,3 +43,13 @@ class VideoWriter:
     def __del__(self):
         #  Ensure cleanup
         self.stop()
+
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self):
+        self.stop()
+
+    def __call__(self, frame):
+        self.write(frame)
