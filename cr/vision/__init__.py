@@ -43,5 +43,6 @@ from .apps import *
 from . import traffic
 from . import faces
 from . import pedestrians
-
+from . import video
+from . import io
 
