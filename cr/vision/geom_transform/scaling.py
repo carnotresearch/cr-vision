@@ -24,6 +24,15 @@ def resize_by_width(image, target_width, interpolation=cv2.INTER_LANCZOS4):
     target_height = int(round(target_width * src_height / src_width))
     return cv2.resize(image, (target_width, target_height), interpolation=interpolation)
 
+def resize_by_max_width(image, max_width=600, interpolation=cv2.INTER_LANCZOS4):
+    src_height, src_width = image.shape[0:2]
+    if src_width <= max_width:
+        # There is nothing to do
+        return image
+    target_width = max_width
+    target_height = int(round(target_width * src_height / src_width))
+    return cv2.resize(image, (target_width, target_height), interpolation=interpolation)
+
 
 def resize(image, target_width=None, target_height=None, interpolation=cv2.INTER_LANCZOS4):
     '''Resize `image` to target width or height  or both
