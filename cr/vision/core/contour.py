@@ -3,7 +3,7 @@ Helper functions and classes for contour finding, drawing, analysis
 '''
 import numpy as np
 import cv2
-from . import colors as iv_colors
+from . import colors as crv_colors
 
 
 class Contour:
@@ -99,7 +99,7 @@ class Contours:
     def __init__(self, contours):
         self._contours = contours
 
-    def draw_centroids(self, image, color=iv_colors.BLACK, marker_size=10, thickness=2):
+    def draw_centroids(self, image, color=crv_colors.BLACK, marker_size=10, thickness=2):
         '''Draws the centroids of contours on the given image'''
         centroids = [contour.centroid() for contour in self._contours]
         marker_type = cv2.MARKER_CROSS
@@ -107,7 +107,7 @@ class Contours:
             cv2.drawMarker(image, centroid, color, marker_type,
                            markerSize=marker_size, thickness=thickness)
 
-    def draw_simple_bounding_boxes(self, image, color=iv_colors.BLACK, thickness=2):
+    def draw_simple_bounding_boxes(self, image, color=crv_colors.BLACK, thickness=2):
         '''Draws simple bounding boxes around the contours in a given image'''
         bounding_boxes = [contour.simple_bounding_box()
                           for contour in self._contours]
@@ -118,7 +118,7 @@ class Contours:
             cv2.rectangle(image, top_left, bottom_right,
                           color, thickness=thickness)
 
-    def draw_best_fit_bounding_boxes(self, image, color=iv_colors.BLACK, thickness=2):
+    def draw_best_fit_bounding_boxes(self, image, color=crv_colors.BLACK, thickness=2):
         '''Draws the best fit (rotated) bounding boxes around contours'''
         bounding_boxes = [contour.best_fit_bounding_box()
                           for contour in self._contours]
