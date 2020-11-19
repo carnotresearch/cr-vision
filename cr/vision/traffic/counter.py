@@ -61,7 +61,7 @@ class TrafficCounter(object):
         for frame in self.cap:
             self.fg_mask = bg.apply(frame, None, 0.001)
             i += 1
-            print(".", end ="")
+            print(".", end ="", flush=True)
             if i >= self.WARMUP_FRAME_COUNT:
                 break
 
