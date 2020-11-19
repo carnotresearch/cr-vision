@@ -1,4 +1,4 @@
-
+import time
 
 
 def step(unit, inputs, outputs=None):
@@ -21,5 +21,21 @@ def step(unit, inputs, outputs=None):
         elif is_multi_output:
             for i, name in enumerate(outputs):
                 setattr(context, name, result[i])
+        return context
+    return f
+
+
+def log_tic(tic_attr):
+    def f(context):
+        setattr(context, tic_attr, time.time_ns())
+        return context
+    return f
+
+
+def log_toc(tic_attr, toc_attr):
+    def f(context):
+        start = getattr(context, tic_attr)
+        duration = time.time_ns() - start
+        setattr(context, toc_attr, duration)
         return context
     return f
