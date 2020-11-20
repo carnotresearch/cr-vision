@@ -61,12 +61,10 @@ def main(input_video_file, output_video_file, count):
         ops.map(log_tic("detection_start")),
         ops.map(step(detector, "image", ["all_rectangles", "weights"])),
         ops.map(log_tic("detection_end")),
-        ops.map(step(vision.bb.xywh_to_ltrb, "all_rectangles")),
         ops.map(log_tic("nms_start")),
         ops.map(step(lambda boxes: vision.bb.nms(boxes, overlap_threshold=0.3), 
             "all_rectangles", "nms_rectangles")),
         ops.map(log_tic("nms_end")),
-        ops.map(step(vision.bb.ltrb_to_xywh, "nms_rectangles")),
         ops.map(step(vision.bb.draw_boxes, ["image", "nms_rectangles"]))
         )
     writer = None

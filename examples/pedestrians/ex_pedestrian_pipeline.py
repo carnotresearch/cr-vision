@@ -54,10 +54,8 @@ def main(input_dir, count):
         ops.map(step(reader, "filepath", "image")),
         ops.map(step(vision.resize_by_max_width, "image", "image")),
         ops.map(step(detector, "image", ["all_rectangles", "weights"])),
-        ops.map(step(vision.bb.xywh_to_ltrb, "all_rectangles")),
-        ops.map(step(lambda boxes: vision.bb.nms(boxes, overlap_threshold=0.3), 
+        ops.map(step(lambda boxes: vision.bb.nms(boxes, overlap_threshold=0.7), 
             "all_rectangles", "nms_rectangles")),
-        ops.map(step(vision.bb.ltrb_to_xywh, "nms_rectangles")),
         ops.map(step(vision.bb.draw_boxes, ["image", "nms_rectangles"]))
         )
     subscription = source.subscribe(Subsciber())
