@@ -1,5 +1,6 @@
 # Command line processing
 import click
+import traceback
 from pathlib import Path
 # Vision related imports
 import cv2
@@ -20,9 +21,35 @@ class Context:
     nms_rectangles : list = None
     weights : list = None
 
-class Subsciber:
-    def __init__(self):
+class Application:
+    def __init__(self, input_dir, total):
         self.count = 0
+        self.input_dir = Path(input_dir).resolve()
+        self.total = total
+        # image reader from Path
+        self.reader = lambda path: cv2.imread(str(path))
+        # initialize the HOG descriptor/person detector
+        self.detector = vision.pedestrians.HOGDetector()
+
+    def build(self):
+        extensions = [".jpg", ".png"]
+        pipeline = rx.from_iterable(self.input_dir.iterdir()).pipe(
+            ops.filter(lambda path: path.is_file()),
+            ops.filter(lambda path: path.suffix in extensions),
+            ops.take(self.total),
+            ops.map(lambda path: Context(filepath=path)),
+            ops.map(step(self.reader, "filepath", "image")),
+            ops.map(step(vision.resize_by_max_width, "image", "image")),
+            ops.map(step(self.detector, "image", ["all_rectangles", "weights"])),
+            ops.map(step(lambda boxes: vision.bb.nms(boxes, overlap_threshold=0.7), 
+                "all_rectangles", "nms_rectangles")),
+            ops.map(step(vision.bb.draw_boxes, ["image", "nms_rectangles"]))
+            )
+        self.pipeline = pipeline
+
+    def run(self):
+        subscription = self.pipeline.subscribe(self)
+        subscription.dispose()
 
     def on_next(self, context):
         self.count += 1
@@ -31,7 +58,8 @@ class Subsciber:
         key = cv2.waitKey(0) & 0xFF
 
     def on_error(self, e):
-        print(e)
+        traceback.print_exc()
+
     def on_completed(self):
         print("done")
 
@@ -40,25 +68,9 @@ class Subsciber:
 @click.argument('input_dir', type=click.Path(exists=True))
 @click.option('--count', default=10, help='Number of images to process.')
 def main(input_dir, count):
-    extensions = [".jpg", ".png"]
-    input_dir  = Path(input_dir).resolve()
-    # image reader from Path
-    reader = lambda path: cv2.imread(str(path))
-    # initialize the HOG descriptor/person detector
-    detector = vision.pedestrians.HOGDetector()
-    source = rx.from_iterable(input_dir.iterdir()).pipe(
-        ops.filter(lambda path: path.is_file()),
-        ops.filter(lambda path: path.suffix in extensions),
-        ops.take(count),
-        ops.map(lambda path: Context(filepath=path)),
-        ops.map(step(reader, "filepath", "image")),
-        ops.map(step(vision.resize_by_max_width, "image", "image")),
-        ops.map(step(detector, "image", ["all_rectangles", "weights"])),
-        ops.map(step(lambda boxes: vision.bb.nms(boxes, overlap_threshold=0.7), 
-            "all_rectangles", "nms_rectangles")),
-        ops.map(step(vision.bb.draw_boxes, ["image", "nms_rectangles"]))
-        )
-    subscription = source.subscribe(Subsciber())
+    app = Application(input_dir, count)
+    app.build()
+    app.run()
     return
 
 
