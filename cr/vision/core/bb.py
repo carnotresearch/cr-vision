@@ -68,7 +68,7 @@ def ltrb_to_xywh(boxes):
     return result
 
 
-def nms(bounding_boxes, scores=None, overlap_threshold=0.3):
+def nms(bounding_boxes, scores=None, overlap_threshold=0.3, box_type="xywh"):
     '''Suppresses smaller boxes in the surroundings.
 
     Args:
@@ -97,11 +97,27 @@ def nms(bounding_boxes, scores=None, overlap_threshold=0.3):
     # The top left coordinates
     x_0 = bounding_boxes[:, 0]
     y_0 = bounding_boxes[:, 1]
-    # bottom right coordinates
-    x_1 = bounding_boxes[:, 2]
-    y_1 = bounding_boxes[:, 3]
+    x_1 = None
+    y_1 = None
+    w = None
+    h = None
+    if box_type == 'ltrb':
+        # bottom right coordinates
+        x_1 = bounding_boxes[:, 2]
+        y_1 = bounding_boxes[:, 3]
+        w = x_1 - x_0 + 1
+        h = y_1 - y_0 + 1
+    elif box_type == 'xywh':
+        # bottom right coordinates
+        w = bounding_boxes[:, 2]
+        h = bounding_boxes[:, 3]
+        x_1 = x_0 + w - 1
+        y_1 = y_0 + h - 1 
+        pass
+    else:
+        raise NotImplemented
     # areas of each of the bounding boxes
-    areas = (x_1 - x_0 + 1) * (y_1 - y_0 + 1)
+    areas =  w * h
     if scores is not None:
         # sort the bounding boxes by confidence scores
         indices = np.argsort(scores)
