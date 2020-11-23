@@ -8,6 +8,8 @@ from dataclasses import dataclass
 import cv2
 import numpy as np
 from cr import vision
+from cr.vision import io
+from cr.vision import filters
 
 # Pipeline building
 import rx
@@ -47,7 +49,7 @@ class Application:
     def __init__(self, loop):
         self.loop = loop
         # Web cam
-        self.webcam = vision.WebcamSequence()
+        self.webcam = io.WebcamSequence()
         self.detector = MotionDetector()
 
     def build(self):
@@ -57,7 +59,7 @@ class Application:
         clock_source = rx.interval(1/fps)
         webcam = self.webcam
         resize_image = lambda image: vision.resize_by_max_width(image, max_width=500)
-        blur = lambda image: vision.gaussian_blur(image, kernel_size=21)
+        blur = lambda image: filters.gaussian_blur(image, kernel_size=21)
         pipeline = clock_source.pipe(
             ops.map(lambda index: Context(index=index, image=next(webcam).frame)),
             ops.map(step(resize_image, "image", "image")),
