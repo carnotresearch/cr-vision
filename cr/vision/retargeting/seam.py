@@ -14,9 +14,10 @@ import logging
 import numpy as np
 from skimage import transform, img_as_float
 from cr import vision
+from cr.vision import filters
+from cr.vision.core import cvt_color
 
-
-def seam_carve(image, target_width, target_height, energy_map=vision.sobel_energy_l1):
+def seam_carve(image, target_width, target_height, energy_map=filters.sobel_energy_l1):
     '''Converts an image into target width and height by using seam carving
 
     :param image: Input image to be reduced to target width and height
