@@ -68,7 +68,7 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[ "numpy", "scipy", "matplotlib", 
     "scikit-image", "opencv-contrib-python",
-    "imageio", "click", "sk-video", "csv", "rx"
+    "imageio", "click", "sk-video", "rx"
     ],
 
     # List additional groups of dependencies here (e.g. development
