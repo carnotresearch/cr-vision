@@ -11,26 +11,30 @@ from .vector import *
 from .array import *
 from .errors import *
 
-# IO
-from .io import *
 
-# Basic Image Processing
-from .core import *
-from .core import effects
-from .geom_transform import *
-from .filters import *
-from .edits import *
-from .concurrent import *
+# core capabilities
+from .core.colors import *
+from .core.contour import *
+from .core.cvt_color import *
+from .core.effects import *
+from .core.histogram import *
+from .core.misc import *
+from .core.noise_gaussian import *
+from .core.noise_snp import *
+from .core.opencv import *
+from .core.operations import *
+from .core.plot import *
+from .core.scaling import *
+from .core.template import *
+from .core.threshold import *
+from .core.types import *
+
 
 # Image Quality Measurements
 from . import measure
 
 # Reactive Extensions
 from . import crx
-
-# Video Processing
-from .video import *
-from .motion import  *
 
 # Application Specific Stuff
 from .object_tracker import *
