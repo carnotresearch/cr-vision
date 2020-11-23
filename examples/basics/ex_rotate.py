@@ -7,6 +7,7 @@ import os
 import cv2
 from dirsetup import IMAGES_DIR
 from cr import vision as vision
+from cr.vision import geom
 
 lena = os.path.join(IMAGES_DIR, 'lena.jpg')
 img = cv2.imread(lena)
@@ -18,7 +19,7 @@ for angle in angles:
     name = 'Lena@' + str(angle)
     cv2.namedWindow(name)
     cv2.moveWindow(name, angle*10, angle)
-    rotated_image = vision.rotate(img, angle)
+    rotated_image = geom.rotate(img, angle)
     cv2.imshow(name, rotated_image)
 
 cv2.waitKey()
