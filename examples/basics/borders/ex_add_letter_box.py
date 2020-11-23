@@ -6,12 +6,13 @@ An example for creating a letter box around an image
 import os
 import cv2
 from dirsetup import IMAGES_DIR
-from cr import vision as vision
+from cr import vision
+from cr.vision import edits
 
 lena_path = os.path.join(IMAGES_DIR, 'lena.jpg')
 img = cv2.imread(lena_path)
 
-img = vision.add_letter_box_pattern(img, 100)
+img = edits.add_letter_box_pattern(img, 100)
 name = 'Lena with letter box'
 cv2.namedWindow(name)
 cv2.moveWindow(name, 10, 10)
