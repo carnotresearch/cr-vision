@@ -3,6 +3,7 @@
 import cv2
 import numpy as np
 from cr import vision
+from cr.vision import io
 from dirsetup import IMAGES_DIR
 from cr.vision import object_detection as od
 
@@ -29,7 +30,7 @@ final_bb = od.non_maximum_suppression(initial_bb)
 # draw the original bounding boxes
 for (x1, y1, x2, y2) in final_bb:
     cv2.rectangle(image, (x1, y1), (x2, y2), (0, 0, 255), 2)
-dm = vision.DisplayManager(['Original', 'People'], gap_x=600)
+dm = io.DisplayManager(['Original', 'People'], gap_x=600)
 
 dm.show_all(orig, image)
 

@@ -6,6 +6,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 from cr import vision
+from cr.vision.core import bb
 # Rx related imports
 from dataclasses import dataclass
 import rx
@@ -39,11 +40,12 @@ class Application:
             ops.take(self.total),
             ops.map(lambda path: Context(filepath=path)),
             ops.map(step(self.reader, "filepath", "image")),
+            ops.filter(lambda context: context.image is not None),
             ops.map(step(vision.resize_by_max_width, "image", "image")),
             ops.map(step(self.detector, "image", ["all_rectangles", "weights"])),
-            ops.map(step(lambda boxes: vision.bb.nms(boxes, overlap_threshold=0.7), 
+            ops.map(step(lambda boxes: bb.nms(boxes, overlap_threshold=0.7), 
                 "all_rectangles", "nms_rectangles")),
-            ops.map(step(vision.bb.draw_boxes, ["image", "nms_rectangles"]))
+            ops.map(step(bb.draw_boxes, ["image", "nms_rectangles"]))
             )
         self.pipeline = pipeline
 

@@ -6,6 +6,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 from cr import vision
+from cr.vision.core import bb
+from cr.vision import io
 # Rx related imports
 from dataclasses import dataclass
 import rx
@@ -49,7 +51,7 @@ class Subsciber:
 @click.argument('output_video_file', type=click.Path(exists=False), required=False, default=None)
 @click.option('--count', default=100, help='Number of frames to process.')
 def main(input_video_file, output_video_file, count):
-    video_src = vision.VideoFileSequence(input_video_file)
+    video_src = io.VideoFileSequence(input_video_file)
     src_width = video_src.width
     src_height = video_src.height
     print("Source resolution: {}x{}".format(src_width, src_height))
@@ -62,10 +64,10 @@ def main(input_video_file, output_video_file, count):
         ops.map(step(detector, "image", ["all_rectangles", "weights"])),
         ops.map(log_tic("detection_end")),
         ops.map(log_tic("nms_start")),
-        ops.map(step(lambda boxes: vision.bb.nms(boxes, overlap_threshold=0.3), 
+        ops.map(step(lambda boxes: bb.nms(boxes, overlap_threshold=0.3), 
             "all_rectangles", "nms_rectangles")),
         ops.map(log_tic("nms_end")),
-        ops.map(step(vision.bb.draw_boxes, ["image", "nms_rectangles"]))
+        ops.map(step(bb.draw_boxes, ["image", "nms_rectangles"]))
         )
     writer = None
     if output_video_file is not None:
