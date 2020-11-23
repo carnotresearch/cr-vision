@@ -2,6 +2,7 @@ import cv2
 import click
 import numpy as np
 from cr import vision
+from cr.vision.core import bb
 from dataclasses import dataclass
 import rx
 import rx.operators as ops
@@ -57,7 +58,7 @@ def main(input_dir, count):
         ops.map(step(resize_to_max_width, "image", "image")),
         ops.map(step(vision.to_gray, "image", "gray")),
         ops.map(step(detector, "gray", "faces")),
-        ops.map(step(vision.bb.draw_boxes, ["image", "faces"]))
+        ops.map(step(bb.draw_boxes, ["image", "faces"]))
         )
     subscription = source.subscribe(Subsciber())
     return

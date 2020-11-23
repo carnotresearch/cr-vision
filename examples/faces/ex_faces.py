@@ -1,5 +1,6 @@
 import cv2
 from cr import vision
+from cr.vision import io
 from dirsetup import IMAGES_DIR
 
 image_path =IMAGES_DIR / 'girl.png'
@@ -23,7 +24,7 @@ for (x, y, w, h) in faces:
     cv2.rectangle(modified, (x, y), (x+w, y+h), (0, 255, 0), 2)
     
 
-dm = vision.DisplayManager(['Image', 'Faces'], gap_x=800)
+dm = io.DisplayManager(['Image', 'Faces'], gap_x=800)
 
 dm.show_all(image, modified)
 

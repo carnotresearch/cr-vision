@@ -5,7 +5,8 @@ Showing the functionality of template matching
 import os
 import numpy as np
 import cv2
-from cr import vision as vision
+from cr import vision
+from cr.vision import io
 from dirsetup import IMAGES_DIR
 
 names = [
@@ -15,7 +16,7 @@ names = [
     'pug.jpg',
     'stuff.jpg'
 ]
-dm = vision.DisplayManager(['Image', 'Template'], gap_x=800)
+dm = io.DisplayManager(['Image', 'Template'], gap_x=800)
 for name in names:
     # path of image to read
     image_path = os.path.join(IMAGES_DIR, name)
