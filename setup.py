@@ -58,7 +58,10 @@ setup(
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Computer Vision',
+        'Topic :: Multimedia',
+        'Topic :: Multimedia :: Video',
+        'Topic :: Scientific/Engineering :: Image Processing',
+        'Topic :: Scientific/Engineering :: Image Recognition',
         # License
         'License :: OSI Approved :: Apache Software License',
         # OS Support
@@ -67,6 +70,7 @@ setup(
         'Operating System :: Microsoft :: Windows',
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
+        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
@@ -83,7 +87,7 @@ setup(
     packages=find_namespace_packages('src', include=['cr.*']),
     package_dir={'': 'src'},
     py_modules=[splitext(basename(path))[0] for path in glob('src/*.py')],
-    python_requires=">=3.7",
+    python_requires=">=3.6",
     # Alternatively, if you want to distribute just a my_module.py, uncomment
     # this:
     #   py_modules=["my_module"],
@@ -92,6 +96,7 @@ setup(
     # your project is installed. For an analysis of "install_requires" vs pip's
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
+    download_url="https://github.com/carnotresearch/cr-vision/archive/v0.1.tar.gz",
     install_requires=[ "numpy", 
         "scipy", 
         "matplotlib", 
