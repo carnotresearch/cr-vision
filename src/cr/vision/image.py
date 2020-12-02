@@ -66,6 +66,14 @@ def expand_gray(image, data_format="channels_last"):
         _raise_invalid_data_format(data_format)
 
 
+def expand_to_batch(image):
+    """
+    Expands an image to a batch of images (of batch size 1)
+    """
+    batch = np.expand_dims(image, axis=0)
+    return batch
+
+
 def channels_last_to_first(image):
     """
     Moves channels of a color image from last to first dimension
