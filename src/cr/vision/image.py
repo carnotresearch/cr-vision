@@ -113,7 +113,47 @@ def normalize_0_1(image):
     return image
 
 
-def normalize_imagenet(x, data_format="channels_last", color_format="rgb"):
+def subtract_mean(image, mean, data_format='channels_last'):
+    if data_format == 'channels_last':
+            image[..., 0] -= mean[0]
+            image[..., 1] -= mean[1]
+            image[..., 2] -= mean[2]
+    elif data_format == 'channels_first':
+        if image.ndim == 3:
+            image[0, :, :] -= mean[0]
+            image[1, :, :] -= mean[1]
+            image[2, :, :] -= mean[2]
+        elif x.ndim == 4:
+            image[:, 0, :, :] -= mean[0]
+            image[:, 1, :, :] -= mean[1]
+            image[:, 2, :, :] -= mean[2]
+        else:
+            raise ValueError('Unsupported number of dimensions.')
+    else:
+        _raise_invalid_data_format(data_format)
+    return image
+
+def scale_down(image, std, data_format='channels_last'):
+    if data_format == 'channels_last':
+        image[..., 0] /= std[0]
+        image[..., 1] /= std[1]
+        image[..., 2] /= std[2]
+    elif data_format == 'channels_first':
+        if image.ndim == 3:
+            image[0, :, :] /= std[0]
+            image[1, :, :] /= std[1]
+            image[2, :, :] /= std[2]
+        elif image.ndim == 4:
+            image[:, 0, :, :] /= std[0]
+            image[:, 1, :, :] /= std[1]
+            image[:, 2, :, :] /= std[2]
+        else:
+            raise ValueError('Unsupported number of dimensions.')
+    else:
+        _raise_invalid_data_format(data_format)
+    return image
+
+def normalize_imagenet(x, data_format="channels_last", color_format="rgb", mean=True, scale=True):
     """
     Subtract the image-net mean and scale by image-net standard deviation.
     We assume that image is in RGB format.
@@ -127,37 +167,44 @@ def normalize_imagenet(x, data_format="channels_last", color_format="rgb"):
         # We need to change the order
         mean = mean[::-1]
         std = std[::-1]
-
-    if data_format == 'channels_last':
-        x[..., 0] -= mean[0]
-        x[..., 1] -= mean[1]
-        x[..., 2] -= mean[2]
-        x[..., 0] /= std[0]
-        x[..., 1] /= std[1]
-        x[..., 2] /= std[2]
-    elif data_format == 'channels_first':
-        if x.ndim == 3:
-            x[0, :, :] -= mean[0]
-            x[1, :, :] -= mean[1]
-            x[2, :, :] -= mean[2]
-            x[0, :, :] /= std[0]
-            x[1, :, :] /= std[1]
-            x[2, :, :] /= std[2]
-        elif x.ndim == 4:
-            x[:, 0, :, :] -= mean[0]
-            x[:, 1, :, :] -= mean[1]
-            x[:, 2, :, :] -= mean[2]
-            x[:, 0, :, :] /= std[0]
-            x[:, 1, :, :] /= std[1]
-            x[:, 2, :, :] /= std[2]
-        else:
-            raise ValueError('Unsupported number of dimensions.')
-    else:
-        _raise_invalid_data_format(data_format)
+    if mean:
+        x = subtract_mean(x, mean)
+    if scale:
+        x = scale_down(x, std)
     return x
 
 def normalize_torch(image, data_format="channels_last"):
     image = normalize_0_1(image)
     image = normalize_imagenet(image, data_format)
+    return image
+
+
+def swap_rgb_channels(image, data_format="channels_last"):
+    if data_format == 'channels_first':
+        if image.ndim == 3:
+            # RGB to BGR swap on axis 0
+            image = image[::-1, ...]
+        else:
+            # RGB to BGR swap on axis 1
+            image = image[:, ::-1, ...]
+    else:
+        # RGB to BGR swap on last axis
+        image = image[..., ::-1]
+    return image
+
+def preprocess_caffe(image, data_format="channels_last", color_format="rgb"):
+    """
+    Perform following transformations:
+    - Convert from RGB to BGR if needed
+    - Subtract the Image Net mean to zero center it
+    """
+    if not issubclass(image.dtype.type, np.floating):
+        # Make sure that image is in (0,1) range
+        image = image.astype(FLOATX, copy=False)
+    if color_format == 'rgb':
+        image = swap_rgb_channels(image, data_format)
+    # mean in BGR format
+    mean = [103.939, 116.779, 123.68]
+    image = subtract_mean(image, mean, data_format)
     return image
 
