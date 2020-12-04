@@ -94,7 +94,7 @@ def residual_block_131(input, filters, kernel_size=3, stride=1, name='block', ch
     net = layers.Activation('relu', name=name + '_2_relu')(net)
 
     # The 1x1 third convolution layer
-    net = layers.Conv2D(4 * filters, 1, name=name + '_3_conv')(net)
+    net = layers.Conv2D(num_output_channels, 1, name=name + '_3_conv')(net)
     net = layers.BatchNormalization(axis=ch_axis, epsilon=BN_EPS,
                                   name=name + '_3_bn')(net)
 
