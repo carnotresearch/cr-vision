@@ -5,7 +5,7 @@ from cr import vision
 from cr.vision.image import expand_to_batch, preprocess_caffe
 from cr.vision.dl.nets.cnn import vgg
 from dirsetup import IMAGES_DIR
-from tensorflow.keras.applications.vgg16 import VGG16, decode_predictions,preprocess_input
+from tensorflow.keras.applications.vgg19 import VGG19, decode_predictions,preprocess_input
 
 image_path =IMAGES_DIR / 'rose.jpg'
 
@@ -20,8 +20,8 @@ batch = expand_to_batch(image)
 #batch = preprocess_input(batch)
 batch = preprocess_caffe(batch, color_format="rgb")
 
-a_model  = vgg.model_vgg16(weights="imagenet")
-b_model = VGG16()
+a_model  = vgg.model_vgg19(weights="imagenet")
+b_model = VGG19()
 #print(model.summary())
 
 a_y = a_model.predict(batch)
