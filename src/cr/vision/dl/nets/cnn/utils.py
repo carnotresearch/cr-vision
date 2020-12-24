@@ -43,6 +43,9 @@ def check_min_size(input_shape, min_size, data_format='channels_last'):
         min_size, min_size, h, w
         ))
 
+def get_channels_axis(data_format='channels_last'):
+    return 3 if data_format == 'channels_last' else 1
+
 def deduce_input_shape(input_shape=None,
     default_size=224,
     min_size=32,
