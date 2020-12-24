@@ -5,7 +5,7 @@ class WeightFile:
     root: str
     folder: str
     name: str
-    file_hash: str
+    file_hash: str = None
 
     @property
     def uri(self):
@@ -15,7 +15,8 @@ class WeightFile:
 
 FCHOLLET_ROOT = 'https://github.com/fchollet/deep-learning-models'
 FCHOLLET_V_0_1 = 'releases/download/v0.1/'
-FCHOLLET_V_0_2 = 'releases/download/v0.1/'
+FCHOLLET_V_0_2 = 'releases/download/v0.2/'
+FCHOLLET_V_0_6 = 'releases/download/v0.6/'
 
 
 FCHOLLET = {
@@ -43,6 +44,12 @@ FCHOLLET = {
         "NO_TOP" : WeightFile(root=FCHOLLET_ROOT, folder=FCHOLLET_V_0_2,
             name="resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5",
             file_hash="a268eb855778b3df3c7506639542a6af")
+    },
+    "MOBILENET_1_0_224" : {
+        "WITH_TOP" : WeightFile(root=FCHOLLET_ROOT, folder=FCHOLLET_V_0_6,
+            name="mobilenet_1_0_224_tf.h5"),  
+        "NO_TOP" : WeightFile(root=FCHOLLET_ROOT, folder=FCHOLLET_V_0_6,
+            name="mobilenet_1_0_224_tf_notop.h5")
     }
 }
 
