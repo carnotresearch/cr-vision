@@ -208,3 +208,34 @@ def preprocess_caffe(image, data_format="channels_last", color_format="rgb"):
     image = subtract_mean(image, mean, data_format)
     return image
 
+
+########################################################
+#
+# Helper functions for working with segmentation masks
+#
+#########################################################
+
+def binary_mask_to_rgba(mask, color="red"):
+    """
+    Converts a binary segmentation mask to a specific color
+    Also adds an alpha channel
+    """
+    # height and width
+    h, w = mask.shape
+    zeros = np.zeros((h, w))
+    ones = mask.reshape(h, w)
+    if color == 'red':
+        return np.stack((ones, zeros, zeros, ones), axis=-1)
+    if color == 'green':
+        return np.stack((zeros, ones, zeros, ones), axis=-1)
+    if color == 'blue':
+        return np.stack((zeros, zeros, ones, ones), axis=-1)
+    if color == 'yellow':
+        return np.stack((ones, ones, zeros, ones), axis=-1)
+    if color == 'magenta':
+        return np.stack((ones, zeros, ones, ones), axis=-1)
+    if color == 'cyan':
+        return np.stack((zeros, ones, ones, ones), axis=-1)
+    if color == 'white':
+        return np.stack((ones, ones, ones, ones), axis=-1)
+    assert "Unsupported color"
