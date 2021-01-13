@@ -221,7 +221,7 @@ def binary_mask_to_rgba(mask, color="red"):
     Also adds an alpha channel
     """
     # height and width
-    h, w = mask.shape
+    h, w = mask.shape[0:2]
     zeros = np.zeros((h, w))
     ones = mask.reshape(h, w)
     if color == 'red':
