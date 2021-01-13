@@ -110,3 +110,4 @@ data/videos/*.mp4
 *.ogg
 *.mp4
 examples/junk/*
+*.h5
