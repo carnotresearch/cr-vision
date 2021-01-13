@@ -26,11 +26,13 @@ def unet_conv_block(inputs,
     padding='same', # padding for conv layers
     kernel_initializer="he_normal",
     use_batch_norm=False,
+    use_bias=None,
     dropout=0,
     dropout_type="spatial",
     name='conv'
     ):
-    use_bias = not use_batch_norm
+    if use_bias is None:
+        use_bias = not use_batch_norm
     # dropout layer type
     DO = None
     if dropout > 0:
@@ -42,7 +44,7 @@ def unet_conv_block(inputs,
         kernel_initializer=kernel_initializer,
         name=f'{name}_conv_1')(inputs)
     if use_batch_norm:
-        net = layers.BatchNormalization(name=f'{name}_bn')(net)
+        net = layers.BatchNormalization(name=f'{name}_bn_1')(net)
     if dropout > 0:
         # dropout in-between
         net = DO(dropout, name=f'{name}_dropout')(net)
@@ -52,4 +54,6 @@ def unet_conv_block(inputs,
         use_bias=use_bias,
         kernel_initializer=kernel_initializer,
         name=f'{name}_conv_2')(net)
+    if use_batch_norm:
+        net = layers.BatchNormalization(name=f'{name}_bn_2')(net)
     return net
