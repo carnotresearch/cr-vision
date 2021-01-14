@@ -105,7 +105,8 @@ setup(
         "imageio", 
         "click", 
         "sk-video", 
-        "rx"
+        "rx",
+        "pandas"
     ],
 
     # List additional groups of dependencies here (e.g. development
