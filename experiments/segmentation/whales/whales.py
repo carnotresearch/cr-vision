@@ -9,6 +9,7 @@ import cv2
 import imageio
 import pandas as pd
 
+from tensorflow import keras
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.optimizers import Adam, SGD
 
@@ -172,3 +173,12 @@ def save_history(history):
 def save_model(model):
     print('Saving trained model in tensorflow SavedModel format.')
     model.save(SAVED_MODEL_DIR)
+
+
+def load_saved_model():
+    print(f'Loading the saved model from {SAVED_MODEL_DIR}')
+    model = keras.models.load_model(SAVED_MODEL_DIR,
+        custom_objects={'iou':sgmt_metrics.iou,
+        'iou_thresholded': sgmt_metrics.iou_thresholded},
+        compile=False)
+    return model
