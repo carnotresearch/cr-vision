@@ -2,19 +2,15 @@
 Setup model training
 """
 import pathlib
-from sklearn.model_selection import train_test_split
 
 import whales
 
 ds_dir = pathlib.Path(r'E:\datasets\vision\segmentation\whales')
 image_ds, mask_ds = whales.get_dataset(ds_dir)
 
-x_train, x_val, y_train, y_val = train_test_split(image_ds, mask_ds, test_size=0.9, random_state=0)
 
-print("x_train: ", x_train.shape)
-print("y_train: ", y_train.shape)
-print("x_val: ", x_val.shape)
-print("y_val: ", y_val.shape)
+x_train, x_val, y_train, y_val = whales.split_data_set(image_ds, mask_ds)
+
 
 # prepare the training set generator
 train_gen = whales.augment_training_set(x_train, y_train)
@@ -26,12 +22,16 @@ model = whales.get_model(input_shape)
 
 whales.compile_model(model)
 
-checkpoints = whales.checkpoints()
+callbacks = whales.get_callbacks()
 
-history = model.fit(
-    train_gen,
-    steps_per_epoch=200,
-    epochs=50,    
-    validation_data=(x_val, y_val),
-    callbacks=[checkpoints]
-)
+# make sure that 
+
+history = whales.fit_model(model, train_gen,
+    x_val, y_val, callbacks,
+    steps_per_epoch=4,
+    epochs=2)
+
+whales.save_model(model)
+
+whales.save_history(history)
+
