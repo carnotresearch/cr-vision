@@ -111,3 +111,7 @@ data/videos/*.mp4
 *.mp4
 examples/junk/*
 *.h5
+*.hdf5
+*.pb
+history.json
+experiments/segmentation/whales/sgmt_model/*
