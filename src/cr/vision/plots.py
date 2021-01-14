@@ -63,6 +63,8 @@ def plot_images_and_masks(originals, masks,
         axis.set_axis_off()
         # mask
         mask = masks[i]
+        if mask.ndim == 3:
+            mask = np.squeeze(mask)
         axis = axes[i, 1]
         axis.imshow(mask, cmap=m_cmap)
         axis.set_axis_off()
@@ -76,6 +78,8 @@ def plot_images_and_masks(originals, masks,
         else:
             # prediction
             pred = predictions[i]
+            if pred.ndim == 3:
+                pred = np.squeeze(pred)
             axis = axes[i, 2]
             axis.imshow(pred, cmap=m_cmap)
             axis.set_axis_off()
