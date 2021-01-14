@@ -10,6 +10,8 @@ import imageio
 from tensorflow.keras.callbacks import ModelCheckpoint
 from tensorflow.keras.optimizers import Adam, SGD
 
+import sys
+IN_COLAB = 'google.colab' in sys.modules
 
 from cr import vision
 from cr.vision.dl.aug import sgmt as sgmt_aug
