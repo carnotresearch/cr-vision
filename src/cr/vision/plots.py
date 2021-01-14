@@ -73,6 +73,18 @@ def plot_images_and_masks(originals, masks,
             mask_rgba = binary_mask_to_rgba(mask)
             axis.imshow(mask_rgba, cmap=m_cmap, alpha=alpha)
             axis.set_axis_off()
+        else:
+            # prediction
+            pred = predictions[i]
+            axis = axes[i, 2]
+            axis.imshow(pred, cmap=m_cmap)
+            axis.set_axis_off()
+            # overlay original with prediction
+            axis = axes[i, 3]
+            axis.imshow(original, cmap=or_cmap)
+            mask_rgba = binary_mask_to_rgba(pred)
+            axis.imshow(mask_rgba, cmap=m_cmap, alpha=alpha)
+            axis.set_axis_off()
 
 
         # prediction
