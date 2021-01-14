@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 
 import whales
 
-ds_dir = pathlib.Path(r'E:\CarnotResearchDrive\datasets\segmentation\whales')
+ds_dir = pathlib.Path(r'E:\datasets\vision\segmentation\whales')
 image_ds, mask_ds = whales.get_dataset(ds_dir)
 
 x_train, x_val, y_train, y_val = train_test_split(image_ds, mask_ds, test_size=0.9, random_state=0)
@@ -28,7 +28,7 @@ whales.compile_model(model)
 
 checkpoints = whales.checkpoints()
 
-history = model.fit_generator(
+history = model.fit(
     train_gen,
     steps_per_epoch=200,
     epochs=50,    
