@@ -115,3 +115,6 @@ examples/junk/*
 *.pb
 history.json
 experiments/segmentation/whales/sgmt_model/*
+.saved_model/
+saved_model/
+.data_cache/
