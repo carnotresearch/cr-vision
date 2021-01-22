@@ -106,7 +106,8 @@ setup(
         "click", 
         "sk-video", 
         "rx",
-        "pandas"
+        "pandas",
+        "diskcache"
     ],
 
     # List additional groups of dependencies here (e.g. development
