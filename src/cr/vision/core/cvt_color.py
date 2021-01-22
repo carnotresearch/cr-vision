@@ -61,3 +61,15 @@ def bgr_to_hsv(image):
     This is useful for filtering on the basis of specific colors
     '''
     return cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+
+def gray_to_rgb(image):
+    is_gray = False
+    if image.ndim == 2:
+        is_gray = True
+    elif image.ndim == 3 and image.shape[2] == 1:
+        is_gray = True
+    if not is_gray:
+        # it's not a gray-scale image. Do nothing
+        return image
+    return cv2.cvtColor(image, cv2.COLOR_GRAY2RGB)
