@@ -32,7 +32,7 @@ if IN_COLAB:
     SAVED_MODEL_DIR = F'{GD_EXP_DIR}/{SAVED_MODEL_DIR}'
 
 
-cache = Cache("./.data_cache")
+cache = Cache("./data_cache")
 
 from cr import vision
 from cr.vision.io import read_images
@@ -53,8 +53,8 @@ def select_images(rootdir, samples=10, force=False):
         print('Restoring the list of selected images from cache')
     return cache['select_images']
 
-def get_dataset(rootdir, samples=40):
-    paths = select_images(rootdir, samples)
+def get_dataset(rootdir, samples=40, force=False):
+    paths = select_images(rootdir, samples, force=force)
     images = read_images(paths, 256, 256)
     # bring them to 0 to 1 range
     images = images / 255
