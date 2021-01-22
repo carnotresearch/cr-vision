@@ -94,3 +94,25 @@ def plot_images_and_masks(originals, masks,
         # prediction
         # overlay
     plt.show()
+
+
+
+def plot_images_with_reconstructions(images, reconstructions):
+    num_images = images.shape[0]
+    n = num_images
+    plt.figure(figsize=(20, 4))
+    for i in range(n):
+        src = images[i]
+        dst = reconstructions[i]
+        # Display original
+        ax = plt.subplot(2, n, i + 1)
+        plt.imshow(src)
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)
+        # Display reconstruction
+        ax = plt.subplot(2, n, i + 1 + n)
+        plt.imshow(dst)
+        ax.get_xaxis().set_visible(False)
+        ax.get_yaxis().set_visible(False)
+    plt.show()
+
