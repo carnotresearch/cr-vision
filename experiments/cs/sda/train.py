@@ -26,15 +26,15 @@ model = sda.build_model(input_shape)
 
 sda.compile_model(model)
 
-sda.init_with_checkpoint(model)
+# sda.init_with_checkpoint(model)
 
 callbacks = sda.build_callbacks()
 
 
 history = sda.fit_model(model, train_gen,
     x_val, callbacks,
-    steps_per_epoch=4,
-    epochs=2)
+    steps_per_epoch=20,
+    epochs=4)
 
 sda.save_model(model)
 
