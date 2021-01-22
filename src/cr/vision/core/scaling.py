@@ -54,3 +54,88 @@ def resize(image, target_width=None, target_height=None, interpolation=cv2.INTER
         return resize_by_width(image, target_width, interpolation)
     # both width and height are specified
     return cv2.resize(image, (target_width, target_height), interpolation=interpolation)
+
+
+def resize_fill(image, target_width, target_height):
+    return resize(image, target_width, target_height)
+
+
+def resize_contain(image, target_width, target_height):
+    """
+    Increases or decreases the size of an image to fill the box while 
+    preserving its aspect ratio
+    """
+    pass
+
+def resize_cover(image, target_width, target_height):
+    return resize_crop(image, target_width, target_height)
+
+
+def resize_inside(image, target_width, target_height):
+    """Preserving aspect ratio, resize an image to be as large as
+    possible while ensuring its dimensions are less than or
+    equal to both those specified
+    """
+    src_height, src_width = image.shape[0:2]
+    h_r = target_height / src_height
+    w_r = target_width / src_width
+    if h_r < w_r:
+        image = resize_by_height(image, target_height=target_height)
+    else:
+        image = resize_by_width(image, target_width=target_width)
+    return image
+
+def resize_outside(image, target_width, target_height):
+    """Preserving aspect ratio, resize an image to be as small as
+    possible while ensuring its dimensions are greater than or
+    equal to both those specified
+    """
+    src_height, src_width = image.shape[0:2]
+    h_r = target_height / src_height
+    w_r = target_width / src_width
+    if h_r > w_r:
+        image = resize_by_height(image, target_height=target_height)
+    else:
+        image = resize_by_width(image, target_width=target_width)
+    return image
+
+def resize_crop(image, target_width, target_height):
+    """Crops the image with a centered rectangle of the specified size
+    """
+    src_height, src_width = image.shape[0:2]
+    if src_height < target_height or src_width < target_width:
+        h_r = target_height / src_height
+        w_r = target_width / src_width
+        if h_r > w_r:
+            image = resize_by_height(image, target_height=target_height)
+        else:
+            image = resize_by_width(image, target_width=target_width)
+        # update the src paramters
+        src_height, src_width = image.shape[0:2]
+        #print(image.shape)
+
+
+    crop_height = src_height - target_height
+    assert crop_height >= 0
+    half_height = int(crop_height / 2)
+    if (crop_height % 2) != 0:
+        # uneven cropping
+        crop_top, crop_bottom = half_height, half_height + 1
+    else:
+        # even cropping
+        crop_top, crop_bottom = half_height, half_height
+
+    # Width to identify left and right crop
+    crop_width = src_width - target_width
+    assert crop_width >= 0
+    half_width = int(crop_width/2)
+    if (crop_width % 2) != 0:
+        # uneven cropping
+        crop_left, crop_right = half_width, half_width + 1
+    else:
+        # even cropping
+        crop_left, crop_right = half_width, half_width
+    result = image[crop_top:src_height-crop_bottom, crop_left:src_width-crop_right, :]
+    return result.copy()
+
+
