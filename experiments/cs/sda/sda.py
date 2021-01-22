@@ -53,9 +53,11 @@ def select_images(rootdir, samples=10, force=False):
         print('Restoring the list of selected images from cache')
     return cache['select_images']
 
-def get_dataset(rootdir, samples=10):
+def get_dataset(rootdir, samples=40):
     paths = select_images(rootdir, samples)
     images = read_images(paths, 256, 256)
+    # bring them to 0 to 1 range
+    images = images / 255
     return images
 
 def split_dataset(images, test_size=0.2,
