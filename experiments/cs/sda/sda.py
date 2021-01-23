@@ -28,8 +28,8 @@ HISTORY_FILENAME = 'history.json'
 SAVED_MODEL_DIR = 'saved_model'
 if IN_COLAB:
     CHECKPOINT_FILENAME = f'{GD_EXP_DIR}/{CHECKPOINT_FILENAME}'
-    HISTORY_FILENAME = F'{GD_EXP_DIR}/{HISTORY_FILENAME}'
-    SAVED_MODEL_DIR = F'{GD_EXP_DIR}/{SAVED_MODEL_DIR}'
+    HISTORY_FILENAME = f'{GD_EXP_DIR}/{HISTORY_FILENAME}'
+    SAVED_MODEL_DIR = f'{GD_EXP_DIR}/{SAVED_MODEL_DIR}'
 
 
 cache = Cache("./data_cache")
@@ -37,16 +37,16 @@ cache = Cache("./data_cache")
 from cr import vision
 from cr.vision.io import read_images, ImagesFromDir
 
-def get_dataset(rootdir):
-    ds =  ImagesFromDir(rootdir, size=1000, cache=cache)
+def get_dataset(rootdir, size=1000):
+    ds =  ImagesFromDir(rootdir, size=size, cache=cache)
     return ds
 
-def augment_training_set(src_images, target_images=None):
+def augment_training_set(src_images, target_images=None,
+    batch_size=32,
+    seed=0):
     if target_images is None:
         target_images = src_images
     print("Preparing augmented training set generator.")
-    batch_size=32
-    seed=0 
     args=dict(
         rotation_range=10.0,
         height_shift_range=0.02,
