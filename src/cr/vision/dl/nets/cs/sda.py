@@ -32,7 +32,9 @@ def cnn_sda(inputs, kernel_initializer="he_normal"):
     # the filter applies to whole patch in one go
     # we will now use 1x1 convolutions for following layers
     # From M measurements (arranged in channels) to N samples (arranged in channels)
-    net = layers.Conv2D(patch_size, 1, 
+    net = layers.Conv2D(
+        filters=patch_size, 
+        kernel_size=1, 
         use_bias=True,
         kernel_initializer=kernel_initializer,
         activation="relu",
@@ -40,7 +42,9 @@ def cnn_sda(inputs, kernel_initializer="he_normal"):
     net = layers.BatchNormalization(name=f'bn_1')(net)
 
 
-    net = layers.Conv2D(measurements, 1, 
+    net = layers.Conv2D(
+        filters=measurements, 
+        kernel_size=1, 
         use_bias=True,
         kernel_initializer=kernel_initializer,
         activation="relu",
