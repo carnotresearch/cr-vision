@@ -35,40 +35,11 @@ if IN_COLAB:
 cache = Cache("./data_cache")
 
 from cr import vision
-from cr.vision.io import read_images
+from cr.vision.io import read_images, ImagesFromDir
 
-def get_all_images(rootdir):
-    rootdir = pathlib.Path(rootdir)
-    paths = rootdir.glob('**/*')
-    images = [path for path in paths if path.is_file()]
-    return images
-
-def select_images(rootdir, samples=10, force=False):
-    if (not 'select_images' in cache) or force:
-        print('Saving the list of selected images to cache')
-        image_paths = get_all_images(rootdir)
-        paths = np.random.choice(image_paths, size=samples, replace=False)
-        cache['select_images'] = paths
-    else:
-        print('Restoring the list of selected images from cache')
-    return cache['select_images']
-
-def get_dataset(rootdir, samples=40, force=False):
-    paths = select_images(rootdir, samples, force=force)
-    images = read_images(paths, 256, 256)
-    # bring them to 0 to 1 range
-    images = images / 255
-    return images
-
-def split_dataset(images, test_size=0.2,
-    random_state=0):
-    print("Splitting training and testing datasets.")
-    x_train, x_val, y_train, y_val = train_test_split(
-        images, images, 
-        test_size=test_size, 
-        random_state=random_state)
-    return x_train, x_val, y_train, y_val
-
+def get_dataset(rootdir):
+    ds =  ImagesFromDir(rootdir, size=1000, cache=cache)
+    return ds
 
 def augment_training_set(src_images, target_images=None):
     if target_images is None:
