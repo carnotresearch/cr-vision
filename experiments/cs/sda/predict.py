@@ -7,7 +7,9 @@ from skimage.metrics import peak_signal_noise_ratio
 
 rootdir  = r'E:\datasets\vision\birds\CUB_200_2011\images'
 
-images = sda.get_dataset(rootdir, samples=10)
+dataset = sda.get_dataset(rootdir)
+
+images = dataset.test_set
 
 model = sda.load_saved_model()
 print(model.summary())
@@ -23,4 +25,5 @@ for i in range(n):
     print(f"[{i+1}] PSNR : {psnr} dB")
 
 
-plot_images_with_reconstructions(images, reconstructions)
+plot_images_with_reconstructions(images[:10], reconstructions[:10])
+
