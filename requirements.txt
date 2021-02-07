@@ -10,3 +10,4 @@ click
 sk-video
 csv
 rx
+sphinxcontrib-bibtex
