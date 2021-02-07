@@ -17,12 +17,13 @@ import sys
 
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath("../"))
+sys.path.append(os.path.abspath('extensions'))
 autodoc_mock_imports = ["_tkinter"]
 
 # -- Project information -----------------------------------------------------
 
 project = "CR.Vision"
-copyright = "2020, Carnot Research Pvt. Ltd."
+copyright = "2020-Present, Carnot Research Pvt. Ltd."
 author = "Carnot Research"
 
 # The short X.Y version
@@ -42,13 +43,20 @@ release = ""
 # ones.
 extensions = [
     "nbsphinx",
+    'sphinx.ext.graphviz',
     "sphinx.ext.autodoc",
     "sphinx.ext.doctest",
+    'sphinx.ext.ifconfig',
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
     "sphinx.ext.mathjax",
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
+    'sphinxcontrib.bibtex',
+    'environments',
+    'admonitions',
+    'youtube',
+    'disqus',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -101,9 +109,13 @@ html_css_files = [
 ]
 html_js_files = [
     'js/custom.js',
+    'js/disqus.js',
 ]
 
-
+mathjax_config = {
+    # 'extensions': ['js/mathconf.js'],
+    #'jax': ['input/TeX', 'output/HTML-CSS'],
+}
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #
@@ -187,3 +199,11 @@ todo_include_todos = True
 import matplotlib
 
 matplotlib.use("agg")
+
+
+# BIBTEX Settings
+bibtex_bibfiles = ['sksrrcs.bib']
+
+
+def setup(app):
+    app.add_js_file('js/mathconf.js')
