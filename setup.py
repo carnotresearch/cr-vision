@@ -105,9 +105,13 @@ setup(
         "imageio", 
         "click", 
         "sk-video", 
-        "rx",
         "pandas",
-        "diskcache"
+        "rx",
+        # Additional packages for running experiments
+        "diskcache",
+        # Sphinx documentation related dependencies
+        "sphinxcontrib-bibtex",
+        "sphinx_rtd_theme",
     ],
 
     # List additional groups of dependencies here (e.g. development
