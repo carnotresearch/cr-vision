@@ -119,3 +119,4 @@ experiments/segmentation/whales/sgmt_model/*
 saved_model/
 .data_cache/
 data_cache/
+docs/copy_references.bat
