@@ -113,7 +113,7 @@ examples/junk/*
 *.h5
 *.hdf5
 *.pb
-history.json
+*history.json
 experiments/segmentation/whales/sgmt_model/*
 .saved_model/
 saved_model/
