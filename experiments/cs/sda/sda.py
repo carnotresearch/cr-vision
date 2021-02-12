@@ -16,7 +16,7 @@ from tensorflow.keras.optimizers import Adam, SGD
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 from sklearn.model_selection import train_test_split
-from cr.vision.dl.nets.cs.sda import model_sda
+from cr.vision.dl.nets.cs.sda import build_models
 
 
 IN_COLAB = 'google.colab' in sys.modules
@@ -26,19 +26,28 @@ GD_EXP_DIR = '/content/drive/MyDrive/work/cr-vision/experiments/cs/sda'
 CHECKPOINT_FILENAME = 'checkpoint.hdf5'
 HISTORY_FILENAME = 'history.json'
 SAVED_MODEL_DIR = 'saved_model'
+CACHE_DIR = "./data_cache"
 if IN_COLAB:
     CHECKPOINT_FILENAME = f'{GD_EXP_DIR}/{CHECKPOINT_FILENAME}'
     HISTORY_FILENAME = f'{GD_EXP_DIR}/{HISTORY_FILENAME}'
     SAVED_MODEL_DIR = f'{GD_EXP_DIR}/{SAVED_MODEL_DIR}'
+    CACHE_DIR = f'{GD_EXP_DIR}/data_cache'
 
 
-cache = Cache("./data_cache")
+cache = Cache(CACHE_DIR)
 
 from cr import vision
 from cr.vision.io import read_images, ImagesFromDir
 
-def get_dataset(rootdir, size=1000):
-    ds =  ImagesFromDir(rootdir, size=size, cache=cache)
+def get_dataset(rootdir, size=1000,
+    force=False,
+    validation=0.2,
+    test=0.2):
+    ds =  ImagesFromDir(rootdir, size=size, 
+        cache=cache,
+        force=force,
+        validation=validation,
+        test=test)
     return ds
 
 def augment_training_set(src_images, target_images=None,
@@ -69,11 +78,6 @@ def augment_training_set(src_images, target_images=None,
     generator = zip(augmented_src, augmented_targets)
     return generator
 
-
-def build_model(input_shape):
-    print("Building model.")
-    model = model_sda(input_shape)
-    return model   
 
 def build_callbacks():
     print("Preparing callbacks for model training.")
@@ -118,21 +122,24 @@ def fit_model(model, train_gen, val_images, callbacks,
     )
     return history
 
-def save_history(history):
+def save_history(history, compression_ratio):
     print('Saving training history.')
     # Make a pandas data frame
-    hist_df = pd.DataFrame(history.history) 
-    with open(HISTORY_FILENAME, mode='w') as f:
+    hist_df = pd.DataFrame(history.history)
+    filename = f'cr_{compression_ratio}_{HISTORY_FILENAME}'
+    with open(filename, mode='w') as f:
         hist_df.to_json(f)
 
-def save_model(model):
-    print('Saving trained model in tensorflow SavedModel format.')
-    model.save(SAVED_MODEL_DIR)
+def save_model(model, name, compression_ratio):
+    print(f'Saving {name} at compression ration {compression_ratio} in tensorflow SavedModel format.')
+    model_dir = f'{SAVED_MODEL_DIR}_{name}_{compression_ratio}'
+    model.save(model_dir)
 
 
-def load_saved_model():
-    print(f'Loading the saved model from {SAVED_MODEL_DIR}')
-    model = keras.models.load_model(SAVED_MODEL_DIR,
+def load_saved_model(name, compression_ratio):
+    model_dir = f'{SAVED_MODEL_DIR}_{name}_{compression_ratio}'
+    print(f'Loading the saved model from {model_dir}')
+    model = keras.models.load_model(model_dir,
         #custom_objects={'iou':sgmt_metrics.iou,
         #'iou_thresholded': sgmt_metrics.iou_thresholded},
         compile=False)

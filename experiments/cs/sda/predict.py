@@ -7,16 +7,23 @@ from skimage.metrics import peak_signal_noise_ratio
 
 rootdir  = r'E:\datasets\vision\birds\CUB_200_2011\images'
 
-dataset = sda.get_dataset(rootdir)
+dataset = sda.get_dataset(rootdir, 
+    size=200,
+    validation=0.2,
+    test=0)
 
-images = dataset.test_set
+images = dataset.validation_set
 
-model = sda.load_saved_model()
+compression_ratio=4
+model = sda.load_saved_model('autoencoder', compression_ratio)
 print(model.summary())
+
+print(f"images: {images.shape}")
 
 reconstructions = model.predict(images)
 
 n = images.shape[0]
+
 
 for i in range(n):
     src = images[i]
