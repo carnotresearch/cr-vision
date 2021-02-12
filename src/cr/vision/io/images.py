@@ -33,15 +33,18 @@ class ImagesFromDir:
         height=256, 
         cache=None, 
         preprocess=None,
-        force=False):
+        force=False,
+        validation=0.2,
+        test=0.2):
         self.rootdir = rootdir
         self.cache = cache
         self.size = size
         self.width = width
         self.height = height
         self.force = force
-        self.n_train_split = int(0.6 * size)
-        self.n_val_split = int(0.8 * size)
+        extra = validation + test
+        self.n_train_split = int( (1 - extra) * size)
+        self.n_val_split = int((1 - test) * size)
         if preprocess is None:
             preprocess = lambda x : x / 255
         self.preprocess = preprocess
