@@ -4,6 +4,8 @@ Base class for object trackers
 
 import cv2
 
+(major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')
+
 OPENCV_CSRT_TRACKER = "csrt"
 OPENCV_KCF_TRACKER = "kcf"
 OPENCV_BOOSTING_TRACKER = "boosting"
@@ -15,11 +17,11 @@ OPENCV_MOSSE_TRACKER = "mosse"
 OBJECT_TRACKERS = {
     OPENCV_CSRT_TRACKER: cv2.TrackerCSRT_create,
     OPENCV_KCF_TRACKER: cv2.TrackerKCF_create,
-    OPENCV_BOOSTING_TRACKER: cv2.TrackerBoosting_create,
+    #OPENCV_BOOSTING_TRACKER: cv2.TrackerBoosting_create,
     OPENCV_MIL_TRACKER: cv2.TrackerMIL_create,
-    OPENCV_TLD_TRACKER: cv2.TrackerTLD_create,
-    OPENCV_MEDIANFLOW_TRACKER: cv2.TrackerMedianFlow_create,
-    OPENCV_MOSSE_TRACKER: cv2.TrackerMOSSE_create
+    #OPENCV_TLD_TRACKER: cv2.TrackerTLD_create,
+    #OPENCV_MEDIANFLOW_TRACKER: cv2.TrackerMedianFlow_create,
+    #OPENCV_MOSSE_TRACKER: cv2.TrackerMOSSE_create
 }
 
 
