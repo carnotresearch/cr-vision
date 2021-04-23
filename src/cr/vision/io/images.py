@@ -1,6 +1,11 @@
 import pathlib
 import numpy as np
 import imageio
+try:
+    from functools import cached_property
+except ImportError:
+    from backports.cached_property import cached_property
+
 
 from cr.vision.core.scaling import resize_crop
 from cr.vision.core.cvt_color import gray_to_rgb
@@ -35,7 +40,8 @@ class ImagesFromDir:
         preprocess=None,
         force=False,
         validation=0.2,
-        test=0.2):
+        test=0.2,
+        rng=np.random.default_rng()):
         self.rootdir = rootdir
         self.cache = cache
         self.size = size
@@ -48,9 +54,9 @@ class ImagesFromDir:
         if preprocess is None:
             preprocess = lambda x : x / 255
         self.preprocess = preprocess
+        self.rng = rng
 
-
-    @property
+    @cached_property
     def all_paths(self):
         rootdir = pathlib.Path(self.rootdir)
         paths = rootdir.glob('**/*')
@@ -58,46 +64,46 @@ class ImagesFromDir:
         # to do verify extension
         return images
     
-    @property
+    @cached_property
     def sampled_paths(self):
         if not self.force and self.cache is not None and 'sampled_paths' in self.cache:
             print("Reading from cache")
             return self.cache['sampled_paths']
         all_paths = self.all_paths
-        sample = np.random.choice(all_paths, size=self.size, replace=False)
+        sample = self.rng.choice(all_paths, size=self.size, replace=False)
         if self.cache is not None:
             print('Saving to cache')
             self.cache['sampled_paths'] = sample
         return sample
     
-    @property
+    @cached_property
     def training_paths(self):
         paths = self.sampled_paths
         return paths[:self.n_train_split]
     
-    @property
+    @cached_property
     def validation_paths(self):
         paths = self.sampled_paths
         return paths[self.n_train_split:self.n_val_split]
 
-    @property
+    @cached_property
     def test_paths(self):
         paths = self.sampled_paths
         return paths[self.n_val_split:]
     
-    @property
+    @cached_property
     def training_set(self):
         images = read_images(self.training_paths, self.width, self.height)
         images = self.preprocess(images)
         return images
 
-    @property
+    @cached_property
     def validation_set(self):
         images = read_images(self.validation_paths, self.width, self.height)
         images = self.preprocess(images)
         return images
 
-    @property
+    @cached_property
     def test_set(self):
         images = read_images(self.test_paths, self.width, self.height)
         images = self.preprocess(images)
