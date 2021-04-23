@@ -112,6 +112,8 @@ setup(
         # Sphinx documentation related dependencies
         "sphinxcontrib-bibtex",
         "sphinx_rtd_theme",
+        # Libraries for compatibility with lower versions of Python
+        'backports.cached-property; python_version < "3.8"'
     ],
 
     # List additional groups of dependencies here (e.g. development
