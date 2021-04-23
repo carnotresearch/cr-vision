@@ -7,9 +7,6 @@ from cr.vision.io import images_from_dir
 
 import sda
 
-rootdir  = r'E:\datasets\vision\birds\CUB_200_2011\images'
-from cr.vision.io import images_from_dir
-
 rootdir  = Path(r'D:\datasets\vision\birds\CUB_200_2011\birds_subset_5000')
 training_set = images_from_dir(rootdir / 'training', size=120)
 validation_set = images_from_dir(rootdir / 'validation', size=40)
