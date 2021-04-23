@@ -1,6 +1,7 @@
 import pathlib
 import numpy as np
 import imageio
+import itertools
 try:
     from functools import cached_property
 except ImportError:
@@ -109,3 +110,20 @@ class ImagesFromDir:
         images = self.preprocess(images)
         return images
 
+
+def images_from_dir(dir_path,
+        width=256,
+        height=256,
+        size=None,
+        preprocess=None
+    ):
+    rootdir = pathlib.Path(dir_path)
+    paths = rootdir.glob('**/*')
+    if size is not None:
+        paths = itertools.islice(paths, size)
+    image_paths = [path for path in paths if path.is_file() and path.suffix in EXTENSIONS]
+    images = read_images(image_paths, width, height)
+    if preprocess is None:
+        preprocess = lambda x : x / 255
+    images = preprocess(images)
+    return images
