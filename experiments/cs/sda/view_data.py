@@ -1,11 +1,11 @@
 
-import sda
-rootdir  = r'E:\datasets\vision\birds\CUB_200_2011\images'
-ds = sda.get_dataset(rootdir, size=100, force=True,
-    validation=0.1, test=0.1)
-training = ds.training_set
+from pathlib import Path
+from cr.vision.io import images_from_dir
+
+rootdir  = Path(r'D:\datasets\vision\birds\CUB_200_2011\birds_subset_5000')
+training = images_from_dir(rootdir / 'training', size=6)
 print(training.shape)
-validation = ds.validation_set
+validation = images_from_dir(rootdir / 'validation', size=2)
 print(validation.shape)
-test = ds.test_set
+test = images_from_dir(rootdir / 'test', size=2)
 print(test.shape)

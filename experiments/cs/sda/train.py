@@ -2,20 +2,18 @@
 Setup model training
 """
 
-import pathlib
+from pathlib import Path
+from cr.vision.io import images_from_dir
 
 import sda
 
 rootdir  = r'E:\datasets\vision\birds\CUB_200_2011\images'
+from cr.vision.io import images_from_dir
 
+rootdir  = Path(r'D:\datasets\vision\birds\CUB_200_2011\birds_subset_5000')
+training_set = images_from_dir(rootdir / 'training', size=120)
+validation_set = images_from_dir(rootdir / 'validation', size=40)
 
-dataset = sda.get_dataset(rootdir,
-    size=200,
-    force=True, 
-    validation=0.2,
-    test=0)
-training_set = dataset.training_set
-validation_set = dataset.validation_set
 print(f"training set: {training_set.shape}")
 print(f"validation set: {validation_set.shape}")
 n_train = training_set.shape[0]
