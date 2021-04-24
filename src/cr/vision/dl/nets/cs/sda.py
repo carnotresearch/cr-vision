@@ -11,6 +11,9 @@ from dataclasses import dataclass
 
 @dataclass
 class FCSDA:
+    """
+    Fully Convolutional Stacked Denoising Autoencoder
+    """
     encoder: models.Model = None
     decoder: models.Model = None
     autoencoder: models.Model = None
