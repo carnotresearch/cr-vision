@@ -1,12 +1,16 @@
 
 from cr.vision.dl.nets.cs.csresnet import build_models
 
-patch_size = 16
+patch_size = 32
+stride_size = 16
 compression_ratio = 64
+num_res_channels=32
 input_shape  = (256, 256, 3)
 print("Building Models.")
 model = build_models(input_shape,
     patch_size=patch_size,
+    stride_size=stride_size,
+    num_res_channels=num_res_channels,
     compression_ratio=compression_ratio)
 print("\n\n\nENCODER MODEL")
 print(model.encoder.summary())
