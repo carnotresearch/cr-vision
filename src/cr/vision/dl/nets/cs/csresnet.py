@@ -92,9 +92,10 @@ def build_decoder(encoded_inputs,
         filters=num_color_channels, 
         kernel_size=3, 
         use_bias=True,
-        activation="relu",
         padding="same",
         name=f"final")(net)
+    # need to make sure that the output lies in the range [0,1]
+    net = layers.ReLU(max_value=1.0, name='final_relu')(net)
     return net
 
 
