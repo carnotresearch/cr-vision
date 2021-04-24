@@ -39,9 +39,8 @@ def bulid_encoder(image,
     return net
 
 
-def residual_block(inputs, n_block):
+def residual_block(inputs, out_channels, n_block):
     in_channels = inputs.shape[-1]
-    out_channels = 96
     residual = layers.Conv2D(
         filters=out_channels, 
         kernel_size=3, 
@@ -62,42 +61,19 @@ def build_decoder(encoded_inputs,
     stride_size=None,
     num_color_channels=3,
     compression_ratio=4,
-    kernel_initializer="he_normal"):
+    kernel_initializer="he_normal",
+    num_middle_channels=96,
+    num_res_blocks=2):
     patch_volume = patch_size * patch_size * num_color_channels
     measurements = patch_volume // compression_ratio
     if stride_size is None:
         stride_size = patch_size
     net = encoded_inputs
-    # # Following network achieves the image reconstruction
-         
-    # # each output channel is one measurement
-    # # the filter applies to whole patch in one go
-    # # we will now use 1x1 convolutions for following layers
-    # # From M measurements (arranged in channels) to N samples (arranged in channels)
-    # net = layers.Conv2D(
-    #     filters=patch_size, 
-    #     kernel_size=1, 
-    #     use_bias=True,
-    #     kernel_initializer=kernel_initializer,
-    #     activation="relu",
-    #     name="layer-1")(encoded_inputs)
-    # net = layers.BatchNormalization(name=f'bn_1')(net)
-
-
-    # net = layers.Conv2D(
-    #     filters=measurements, 
-    #     kernel_size=1, 
-    #     use_bias=True,
-    #     kernel_initializer=kernel_initializer,
-    #     activation="relu",
-    #     name="layer-2")(net)
-    # net = layers.BatchNormalization(name=f'bn_2')(net)
-
     # This layer is the inverse of the first layer.
     # It converts a strip over samples on the
     # channels dimension into an image patch
     net = layers.Conv2DTranspose(
-        filters=num_color_channels, 
+        filters=num_middle_channels, 
         kernel_size=patch_size,
         strides=stride_size, 
         use_bias=True,
@@ -106,8 +82,8 @@ def build_decoder(encoded_inputs,
         name="initial")(net)
 
     # add a few residual blocks
-    for n in range(4):
-        net = residual_block(net, n+1)
+    for n in range(num_res_blocks):
+        net = residual_block(net, num_middle_channels, n+1)
 
     # add a final block to reconstruct the image
     net = layers.Conv2D(
@@ -123,7 +99,9 @@ def build_decoder(encoded_inputs,
 
 def build_models(input_shape,
     patch_size=16,
+    stride_size=None,
     compression_ratio=64,
+    num_res_blocks=2,
     kernel_initializer="he_normal"
     ):
     num_color_channels = input_shape[-1]
@@ -132,6 +110,7 @@ def build_models(input_shape,
     inputs = layers.Input(input_shape, name='input')
     encoder_net = bulid_encoder(inputs,
         patch_size=patch_size,
+        stride_size=stride_size,
         compression_ratio=compression_ratio,
         kernel_initializer=kernel_initializer
         )
@@ -143,7 +122,9 @@ def build_models(input_shape,
     encoded_input = keras.Input(shape=encoded_shape, name="encoded_input")
     decoder_net = build_decoder(encoded_input,
         patch_size=patch_size,
+        stride_size=stride_size,
         num_color_channels=num_color_channels,
+        num_res_blocks=num_res_blocks,
         compression_ratio=compression_ratio,
         kernel_initializer=kernel_initializer
         )
