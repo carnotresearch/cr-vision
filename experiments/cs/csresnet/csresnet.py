@@ -113,14 +113,19 @@ def save_history(history, compression_ratio):
     with open(filename, mode='w') as f:
         hist_df.to_json(f)
 
-def save_model(model, name, compression_ratio):
-    print(f'Saving {name} at compression ration {compression_ratio} in tensorflow SavedModel format.')
-    model_dir = f'{SAVED_MODEL_DIR}_{name}_{compression_ratio}'
+
+def form_model_name(name, patch_size, stride_size, num_res_blocks, num_res_channels, compression_ratio):
+    name = f'{name}_p={patch_size}_s={stride_size}_b={num_res_blocks}_c={num_res_channels}_cr={compression_ratio}'
+    return name
+
+def save_model(model, name):
+    print(f'Saving {name} in tensorflow SavedModel format.')
+    model_dir = f'{SAVED_MODEL_DIR}_{name}'
     model.save(model_dir)
 
 
-def load_saved_model(name, compression_ratio):
-    model_dir = f'{SAVED_MODEL_DIR}_{name}_{compression_ratio}'
+def load_saved_model(name):
+    model_dir = f'{SAVED_MODEL_DIR}_{name}'
     print(f'Loading the saved model from {model_dir}')
     model = keras.models.load_model(model_dir,
         #custom_objects={'iou':sgmt_metrics.iou,
