@@ -115,7 +115,8 @@ def images_from_dir(dir_path,
         width=256,
         height=256,
         size=None,
-        preprocess=None
+        preprocess=None,
+        include_paths = False
     ):
     rootdir = pathlib.Path(dir_path)
     paths = rootdir.glob('**/*')
@@ -126,4 +127,6 @@ def images_from_dir(dir_path,
     if preprocess is None:
         preprocess = lambda x : x / 255
     images = preprocess(images)
+    if include_paths:
+        return images, image_paths
     return images
