@@ -121,3 +121,4 @@ saved_model*/
 .data_cache/
 data_cache/
 docs/copy_references.bat
+*_history_*
